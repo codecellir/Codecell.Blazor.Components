@@ -1,0 +1,190 @@
+
+.persian-date-input {
+    position: relative;
+
+    .input-wrapper {
+        position: relative;
+
+        .p-date {
+            font-size: 16px;
+            text-align: center;
+            border: 1px solid #ced4da;
+            line-height: 30px;
+            color: #212529;
+            background-color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            direction: rtl;
+
+            &:focus-visible {
+                outline: 0;
+            }
+        }
+
+        .clear {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            font-size: 14px;
+            top: 5px;
+            color: #bbb8b8;
+            font-weight: 100;
+
+            &:hover {
+                border: 1px solid #dcdcdc;
+                border-radius: 8px;
+                background: #dcdcdc;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .persian-date-wraper {
+        position: absolute;
+        z-index: 999;
+        background: #fff;
+        width: 200px;
+        direction: rtl;
+        display: flex;
+        justify-content: center;
+        flex-flow: column;
+        padding: 7px;
+        border: 1px solid #dcdcdc;
+
+        .month-select {
+            display: grid;
+            grid-template-columns: 60px 60px 60px;
+            grid-column-gap: 7px;
+            direction: rtl;
+
+            a {
+                width: 55px;
+                height: 40px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                &:hover {
+                    border: 1px solid #dcdcdc;
+                    border-radius: 4px;
+                    background: #dcdcdc;
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .month-select > * {
+            direction: ltr;
+        }
+
+        .year-select {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            max-height: 200px;
+            overflow-y: auto;
+
+            a {
+                width: 40px;
+                height: 30px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                &:hover {
+                    border: 1px solid #dcdcdc;
+                    border-radius: 4px;
+                    background: #dcdcdc;
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .year {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 25px;
+
+            span {
+                font-size: 18px;
+                font-weight: bold;
+                cursor: pointer;
+            }
+        }
+
+        .month {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 32px;
+
+            span {
+                cursor: pointer;
+            }
+
+            .navigation {
+                width: 35px;
+                height: 35px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-decoration: none;
+                font-size: 18px;
+
+                &:hover {
+                    border: 1px solid #dcdcdc;
+                    border-radius: 17px;
+                    background: #dcdcdc;
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .week {
+            display: grid;
+            grid-template-columns: 27px 27px 27px 27px 27px 27px 27px;
+            grid-column-gap: 0px;
+            direction: rtl;
+
+            .day-name {
+                font-size: 16px;
+                font-weight: bold;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 30px;
+                width: 30px;
+            }
+
+            .day {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 27px;
+                height: 27px;
+                font-size: 14px;
+
+                &:hover {
+                    background: #dcdcdc;
+                    cursor: pointer;
+                    border-radius: 4px;
+                }
+
+                &.current {
+                    background-color: #46cc46;
+                    border-radius: 4px;
+                }
+            }
+        }
+
+        .week > * {
+            direction: ltr;
+        }
+    }
+}
