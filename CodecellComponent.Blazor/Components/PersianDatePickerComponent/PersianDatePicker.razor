@@ -1,11 +1,11 @@
 ﻿<div class="persian-date-input">
     <div class="input-wrapper">
         <input class="p-date" readonly @onclick="OpenPicker" value="@selectedDateInPersianFormat" />
-        <a @onclick="Clear" class="clear">&#10006;</a>
+        <a  class="clear">&#10006;</a>
     </div>
     @if (openPicker)
     {
-        <div class="persian-date-wraper">
+        <div class="persian-date-wrapper">
             @if (monthMode)
             {
                 <div class="month-select">
@@ -50,7 +50,7 @@
                         <div class="@dayClass">
                             @if (item.Show)
                             {
-                                <a @onclick="()=>SelectDate(item.Date)">@item.Day</a>
+                                <a>@item.Day</a>
                             }
                         </div>
                     }
