@@ -1,8 +1,10 @@
-﻿namespace CodecellComponent.Blazor.Components.PersianDatePickerComponent
+﻿using System.Globalization;
+
+namespace CodecellComponent.Blazor.Components.PersianDatePickerComponent
 {
     public static class PersianDateHelper
     {
-
+        private static PersianCalendar pc = new();
         public static string[] WeekNames => ["ش", "ی", "د", "س", "چ", "پ", "ج"];
         public static int GetWeekSpan(this DayOfWeek week)
         {
@@ -18,20 +20,6 @@
                 _ => 0
             };
         }
-
-        public static string GetWeekName(this DayOfWeek week) =>
-             week switch
-             {
-                 DayOfWeek.Saturday => "شنبه",
-                 DayOfWeek.Sunday => "یکشنبه",
-                 DayOfWeek.Monday => "دوشنبه",
-                 DayOfWeek.Tuesday => "سه شنبه",
-                 DayOfWeek.Wednesday => "چهارشنبه",
-                 DayOfWeek.Thursday => "پنجشنبه",
-                 DayOfWeek.Friday => "جمعه",
-                 _ => "نامشخص"
-             };
-
         public static string GetMonthName(this int month) =>
               month switch
               {
@@ -64,6 +52,13 @@
                (11, "بهمن"),
                (12, "اسفند")
             ];
+        public static string ToPersianDate(this DateTime date)
+        {
+            var year = pc.GetYear(date);
+            var month = pc.GetMonth(date);
+            var day = pc.GetDayOfMonth(date);
+            return $"{year}/{month.ToString("D2")}/{day.ToString("D2")}";
+        }
 
     }
 }

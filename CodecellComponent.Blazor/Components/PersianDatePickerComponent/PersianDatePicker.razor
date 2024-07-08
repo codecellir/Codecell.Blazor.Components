@@ -61,16 +61,13 @@
 </div>
 @code {
     [Parameter] public DateTime? Date { get; set; }
-    [Parameter]
-    public EventCallback<DateTime?>
-    DateChanged
-    { get; set; }
+
+    [Parameter] public EventCallback<DateTime?> DateChanged { get; set; }
 
     DateTime? selectedDate;
     string selectedDateInPersianFormat;
     System.Globalization.PersianCalendar pc = new();
-    List<DateCellModel>
-        cells = new();
+    List<DateCellModel> cells = new();
 
     string fullMonthName;
     int currentMonth;

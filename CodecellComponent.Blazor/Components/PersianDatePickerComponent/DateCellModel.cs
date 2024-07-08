@@ -8,13 +8,10 @@
         public string PersianDateFormat => PersianDate();
         string PersianDate()
         {
-            if (Day <= 0) return string.Empty;
-            System.Globalization.PersianCalendar pc = new();
-            var year = pc.GetYear(Date);
-            var month = pc.GetMonth(Date);
-            var day = pc.GetDayOfMonth(Date);
+            if (Day <= 0)
+                return string.Empty;
 
-            return $"{year}/{month.ToString("D2")}/{day.ToString("D2")}";
+            return Date.ToPersianDate();
         }
     }
 }
