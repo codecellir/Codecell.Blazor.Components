@@ -1,7 +1,8 @@
 
 .persian-date-input {
     position: relative;
-    font-family:IRANYekan;
+    font-family: IRANYekan;
+
     .input-wrapper {
         position: relative;
 
@@ -47,7 +48,7 @@
         position: absolute;
         z-index: 999;
         background: #fff;
-        width: 200px;
+        width: 240px;
         direction: rtl;
         display: flex;
         justify-content: center;
@@ -57,12 +58,12 @@
 
         .month-select {
             display: grid;
-            grid-template-columns: 60px 60px 60px;
+            grid-template-columns: 70px 70px 70px;
             grid-column-gap: 7px;
             direction: rtl;
 
             a {
-                width: 55px;
+                width: 60px;
                 height: 40px;
                 display: flex;
                 justify-content: center;
@@ -83,7 +84,7 @@
 
         .year-select {
             display: flex;
-            justify-content: center;
+            justify-content: start;
             gap: 10px;
             flex-wrap: wrap;
             max-height: 200px;
@@ -148,7 +149,7 @@
 
         .week {
             display: grid;
-            grid-template-columns: 27px 27px 27px 27px 27px 27px 27px;
+            grid-template-columns: 32px 32px 32px 32px 32px 32px 32px;
             grid-column-gap: 0px;
             direction: rtl;
 
@@ -166,19 +167,19 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                width: 27px;
-                height: 27px;
+                width: 30px;
+                height: 30px;
                 font-size: 14px;
 
                 &:hover {
                     background: #dcdcdc;
                     cursor: pointer;
-                    border-radius: 12px;
+                    border-radius: 15px;
                 }
 
                 &.current {
                     background-color: #46cc46;
-                    border-radius: 12px;
+                    border-radius: 15px;
                     color: #fff;
                     font-weight: bold;
                 }
