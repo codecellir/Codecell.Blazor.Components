@@ -1,12 +1,12 @@
 
 .persian-date-input {
     position: relative;
-
+    font-family:IRANYekan;
     .input-wrapper {
         position: relative;
 
         .p-date {
-            font-size: 16px;
+            font-size: 14px;
             text-align: center;
             border: 1px solid #ced4da;
             line-height: 30px;
@@ -153,7 +153,7 @@
             direction: rtl;
 
             .day-name {
-                font-size: 16px;
+                font-size: 14px;
                 font-weight: bold;
                 display: flex;
                 justify-content: center;
@@ -173,12 +173,14 @@
                 &:hover {
                     background: #dcdcdc;
                     cursor: pointer;
-                    border-radius: 4px;
+                    border-radius: 12px;
                 }
 
                 &.current {
                     background-color: #46cc46;
-                    border-radius: 4px;
+                    border-radius: 12px;
+                    color: #fff;
+                    font-weight: bold;
                 }
             }
         }

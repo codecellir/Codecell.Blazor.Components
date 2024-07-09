@@ -47,7 +47,7 @@
                         var dayClass = item.Show ? "day" : "";
                         if (item.Show && selectedDate.Value.Date == item.Date.Date)
                             dayClass = $"{dayClass} current";
-                        <div class="@dayClass">
+                        <div class="@dayClass" @onclick="()=>SelectDate(item.Date)">
                             @if (item.Show)
                             {
                                 <a>@item.Day</a>
@@ -92,7 +92,6 @@
         var isLeapYear = pc.IsLeapYear(currentYear);
 
         fullMonthName = $"{currentMonth.GetMonthName()} {currentYear}";
-        selectedDateInPersianFormat = $"{currentYear}/{currentMonth.ToString("D2")}/{currentDay.ToString("D2")}";
 
         var firstDayOfDate = new DateTime(currentYear, currentMonth, 1, pc);
         int weekSpan = firstDayOfDate.DayOfWeek.GetWeekSpan();
@@ -114,7 +113,7 @@
             cells.Add(new DateCellModel
             {
                 Day = i,
-                Date = firstDayOfDate.AddDays(i - 1)
+                Date = firstDayOfDate.AddDays(i - 1).Date
             });
         }
 
@@ -191,24 +190,24 @@
     void GoToMonth(int month)
     {
         currentMonth = month;
-        selectedDate = new DateTime(currentYear, currentMonth, currentDay, pc);
         if (currentMonth == 12 && !pc.IsLeapYear(currentYear) && currentDay > 29)
             currentDay = 1;
 
+        var date = new DateTime(currentYear, currentMonth, currentDay, pc);
         monthMode = yearMode = false;
-        PrepareCells(selectedDate.Value);
+        PrepareCells(date);
 
     }
 
     void GoToYear(int year)
     {
         currentYear = year;
-        selectedDate = new DateTime(currentYear, currentMonth, currentDay, pc);
         if (currentMonth == 12 && !pc.IsLeapYear(currentYear) && currentDay > 29)
             currentDay = 1;
 
+        var date = new DateTime(currentYear, currentMonth, currentDay, pc);
         monthMode = yearMode = false;
-        PrepareCells(selectedDate.Value);
+        PrepareCells(date);
 
     }
 

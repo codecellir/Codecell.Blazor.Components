@@ -1,0 +1,18 @@
+@font-face {
+    font-family: iranyekan;
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('./iranyekanwebmediumfanum.woff') format('woff');
+}
+
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'iranyekan';
+    font-size: 14px;
+    word-spacing: -1px;
+    height: 100%;
+}
+
