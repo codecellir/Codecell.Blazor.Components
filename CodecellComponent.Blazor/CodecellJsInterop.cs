@@ -1,0 +1,31 @@
+using Microsoft.JSInterop;
+
+namespace CodecellComponent.Blazor
+{
+
+    public class CodecellJsInterop : IAsyncDisposable
+    {
+        private readonly Lazy<Task<IJSObjectReference>> moduleTask;
+
+        public CodecellJsInterop(IJSRuntime jsRuntime)
+        {
+            moduleTask = new(() => jsRuntime.InvokeAsync<IJSObjectReference>(
+                "import", "./_content/CodecellComponent.Blazor/codecell.js").AsTask());
+        }
+
+        public async Task AddOutSideClickHandler(string elemntId, object dotNetObject)
+        {
+            var module = await moduleTask.Value;
+            await module.InvokeVoidAsync("addOutSideClickHandler", elemntId, dotNetObject);
+        }
+
+        public async ValueTask DisposeAsync()
+        {
+            if (moduleTask.IsValueCreated)
+            {
+                var module = await moduleTask.Value;
+                await module.DisposeAsync();
+            }
+        }
+    }
+}

@@ -1,4 +1,6 @@
-﻿<div class="persian-date-input">
+﻿@using Microsoft.JSInterop
+
+<div class="persian-date-input" id="codecell_persian_date_picker_component">
     <div class="input-wrapper">
         <input class="p-date" readonly @onclick="OpenPicker" value="@selectedDateInPersianFormat" />
         @if (!string.IsNullOrWhiteSpace(selectedDateInPersianFormat))
@@ -63,9 +65,14 @@
     }
 </div>
 @code {
+
+    [Inject] public CodecellJsInterop JsInterop { get; set; }
+
     [Parameter] public DateTime? Date { get; set; }
 
     [Parameter] public EventCallback<DateTime?> DateChanged { get; set; }
+
+    DotNetObjectReference<PersianDatePicker>? objRef;
 
     DateTime? selectedDate;
     string selectedDateInPersianFormat;
@@ -80,16 +87,30 @@
 
     protected override void OnInitialized()
     {
+        objRef = DotNetObjectReference.Create(this);
+
         if (Date.HasValue)
         {
             SetPersianFormatText(Date.Value);
         }
     }
 
-    void Close()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JsInterop.AddOutSideClickHandler("codecell_persian_date_picker_component", objRef);
+        }
+    }
+
+
+    [JSInvokable]
+    public void InvokeClickOutside()
     {
         openPicker = false;
+        StateHasChanged();
     }
+
 
     void PrepareCells(DateTime date)
     {
