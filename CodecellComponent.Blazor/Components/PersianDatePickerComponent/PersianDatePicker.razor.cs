@@ -12,6 +12,7 @@ namespace CodecellComponent.Blazor.Components.PersianDatePickerComponent
         [Parameter] public DateTime? Date { get; set; }
 
         [Parameter] public EventCallback<DateTime?> DateChanged { get; set; }
+        [Parameter] public EventCallback<DateTime?> ValueChanged { get; set; }
 
         DotNetObjectReference<PersianDatePicker>? objRef;
 
@@ -25,7 +26,7 @@ namespace CodecellComponent.Blazor.Components.PersianDatePickerComponent
         int currentMonth;
         int currentYear;
         int currentDay;
-        bool monthMode, yearMode, openPicker;
+        bool monthMode, yearMode;
         string pickerClass = "persian-date-wrapper d-none";
         string monthClass = "month-select d-none";
         string yearClass = "year-select d-none";
@@ -52,7 +53,6 @@ namespace CodecellComponent.Blazor.Components.PersianDatePickerComponent
         [JSInvokable]
         public void InvokeClickOutside()
         {
-            openPicker = false;
             pickerClass = "persian-date-wrapper d-none";
             calendarClass = "calendar d-none";
             StateHasChanged();
@@ -110,10 +110,10 @@ namespace CodecellComponent.Blazor.Components.PersianDatePickerComponent
         void SelectDate(DateTime date)
         {
             selectedDate = Date = date;
-            openPicker = false;
             pickerClass = "persian-date-wrapper d-none";
             calendarClass = "calendar d-none";
             DateChanged.InvokeAsync(selectedDate);
+            ValueChanged.InvokeAsync(selectedDate);
 
             SetPersianFormatText(Date.Value);
         }
@@ -199,16 +199,14 @@ namespace CodecellComponent.Blazor.Components.PersianDatePickerComponent
 
         void OpenPicker()
         {
-            if (openPicker)
+            if (pickerClass.Equals("persian-date-wrapper"))
             {
-                openPicker = false;
                 pickerClass = "persian-date-wrapper d-none";
                 calendarClass = "calendar d-none";
                 return;
             }
             selectedDate = Date.HasValue ? Date : DateTime.Now;
             PrepareCells(selectedDate.Value);
-            openPicker = true;
             pickerClass = "persian-date-wrapper";
             calendarClass = "calendar";
         }
@@ -225,10 +223,10 @@ namespace CodecellComponent.Blazor.Components.PersianDatePickerComponent
         {
             Date = selectedDate = null;
             selectedDateInPersianFormat = string.Empty;
-            openPicker = false;
             pickerClass = "persian-date-wrapper d-none";
             calendarClass = "calendar d-none";
             DateChanged.InvokeAsync(null);
+            ValueChanged.InvokeAsync(null);
         }
 
         public void Dispose()

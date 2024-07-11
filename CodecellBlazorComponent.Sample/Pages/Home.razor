@@ -8,7 +8,8 @@
     <div class="col-md-4">
         <PersianDatePicker @bind-Date="myDate"
                            PlaceHolder="تاریخ تولد"
-                           Label="تولد شما:"/>
+                           Label="تولد شما:"
+                           ValueChanged="DateChanged" />
     </div>
 </div>
 
@@ -19,4 +20,9 @@
 @code{
 
     DateTime? myDate;
+
+    void DateChanged(DateTime? value)
+    {
+        Console.WriteLine($"Date Changed: {value}");
+    }
 }
