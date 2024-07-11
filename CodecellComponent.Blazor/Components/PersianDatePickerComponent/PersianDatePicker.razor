@@ -8,30 +8,27 @@
             <a @onclick="Clear" class="clear">&#10006;</a>
         }
     </div>
-    @if (openPicker)
-    {
-        <div class="persian-date-wrapper">
-            @if (monthMode)
-            {
-                <div class="month-select">
-                    @foreach (var item in PersianDateHelper.GetMonths())
-                    {
-                        <a @onclick="()=>GoToMonth(item.MonthNumber)">@item.MonthName</a>
-                    }
-                </div>
-            }
-            else if (yearMode)
-            {
-                <div class="year-select">
-                    @for (int i = 1340; i <= 1440; i++)
-                    {
-                        var year = i;
-                        <a @onclick="()=>GoToYear(year)">@i</a>
-                    }
-                </div>
-            }
-            else
-            {
+
+    <div class="@pickerClass">
+       
+            <div class="@monthClass">
+                @foreach (var item in PersianDateHelper.GetMonths())
+                {
+                    <a @onclick="()=>GoToMonth(item.MonthNumber)">@item.MonthName</a>
+                }
+            </div>
+        
+       
+            <div class="@yearClass">
+                @for (int i = 1340; i <= 1440; i++)
+                {
+                    var year = i;
+                    <a @onclick="()=>GoToYear(year)">@i</a>
+                }
+            </div>
+        
+     
+            <div class="@calendarClass">
                 <div class="year">
                     <span @onclick="YearMode">@currentYear</span>
                 </div>
@@ -60,9 +57,10 @@
                         </div>
                     }
                 </div>
-            }
-        </div>
-    }
+            </div>
+        
+    </div>
+
 </div>
 @code {
 
@@ -84,7 +82,10 @@
     int currentYear;
     int currentDay;
     bool monthMode, yearMode, openPicker;
-
+    string pickerClass = "persian-date-wrapper d-none";
+    string monthClass = "month-select d-none";
+    string yearClass = "year-select d-none";
+    string calendarClass = "calendar d-none";
     protected override void OnInitialized()
     {
         objRef = DotNetObjectReference.Create(this);
@@ -108,6 +109,8 @@
     public void InvokeClickOutside()
     {
         openPicker = false;
+        pickerClass = "persian-date-wrapper d-none";
+        calendarClass = "calendar d-none";
         StateHasChanged();
     }
 
@@ -164,6 +167,8 @@
     {
         selectedDate = Date = date;
         openPicker = false;
+        pickerClass = "persian-date-wrapper d-none";
+        calendarClass = "calendar d-none";
         DateChanged.InvokeAsync(selectedDate);
 
         SetPersianFormatText(Date.Value);
@@ -208,12 +213,16 @@
     {
         monthMode = true;
         yearMode = false;
+        monthClass = "month-select";
+        calendarClass = "calendar d-none";
     }
 
     void YearMode()
     {
         yearMode = true;
         monthMode = false;
+        yearClass = "year-select";
+        calendarClass = "calendar d-none";
     }
 
     void GoToMonth(int month)
@@ -224,6 +233,8 @@
 
         var date = new DateTime(currentYear, currentMonth, currentDay, pc);
         monthMode = yearMode = false;
+        monthClass = "month-select d-none";
+        calendarClass = "calendar";
         PrepareCells(date);
 
     }
@@ -236,6 +247,8 @@
 
         var date = new DateTime(currentYear, currentMonth, currentDay, pc);
         monthMode = yearMode = false;
+        yearClass = "year-select d-none";
+        calendarClass = "calendar";
         PrepareCells(date);
 
     }
@@ -245,11 +258,15 @@
         if (openPicker)
         {
             openPicker = false;
+            pickerClass = "persian-date-wrapper d-none";
+            calendarClass = "calendar d-none";
             return;
         }
         selectedDate = Date.HasValue ? Date : DateTime.Now;
         PrepareCells(selectedDate.Value);
         openPicker = true;
+        pickerClass = "persian-date-wrapper";
+        calendarClass = "calendar";
     }
 
     void SetPersianFormatText(DateTime date)
@@ -265,6 +282,8 @@
         Date = selectedDate = null;
         selectedDateInPersianFormat = string.Empty;
         openPicker = false;
+        pickerClass = "persian-date-wrapper d-none";
+        calendarClass = "calendar d-none";
         DateChanged.InvokeAsync(null);
     }
 }

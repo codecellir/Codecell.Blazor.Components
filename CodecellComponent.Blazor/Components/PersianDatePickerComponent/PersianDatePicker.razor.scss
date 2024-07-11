@@ -16,7 +16,7 @@
             border-radius: 4px;
             cursor: pointer;
             direction: rtl;
-
+            width:100%;
             &:focus-visible {
                 outline: 0;
             }
@@ -190,4 +190,7 @@
             direction: ltr;
         }
     }
+}
+.d-none{
+    display:none;
 }
