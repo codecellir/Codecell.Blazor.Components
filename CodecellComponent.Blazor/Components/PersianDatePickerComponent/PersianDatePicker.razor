@@ -10,55 +10,55 @@
     </div>
 
     <div class="@pickerClass">
-       
-            <div class="@monthClass">
-                @foreach (var item in PersianDateHelper.GetMonths())
+
+        <div class="@monthClass">
+            @foreach (var item in PersianDateHelper.GetMonths())
+            {
+                <a @onclick="()=>GoToMonth(item.MonthNumber)">@item.MonthName</a>
+            }
+        </div>
+
+
+        <div class="@yearClass">
+            @for (int i = 1340; i <= 1440; i++)
+            {
+                var year = i;
+                <a @onclick="()=>GoToYear(year)">@i</a>
+            }
+        </div>
+
+
+        <div class="@calendarClass">
+            <div class="year">
+                <span @onclick="YearMode">@currentYear</span>
+            </div>
+            <div class="month">
+                <a @onclick="PrevMonth" class="navigation">&#8249;</a>
+                <span @onclick="MonthMode">@fullMonthName</span>
+                <a @onclick="NextMonth" class="navigation">&#8250;</a>
+            </div>
+            <div class="week">
+                @foreach (var name in PersianDateHelper.WeekNames)
                 {
-                    <a @onclick="()=>GoToMonth(item.MonthNumber)">@item.MonthName</a>
+                    <div class="day-name">
+                        <span>@name</span>
+                    </div>
+                }
+                @foreach (var item in cells)
+                {
+                    var dayClass = item.Show ? "day" : "";
+                    if (item.Show && selectedDate.HasValue && selectedDate.Value.Date == item.Date.Date)
+                        dayClass = $"{dayClass} current";
+                    <div class="@dayClass" @onclick="()=>SelectDate(item.Date)">
+                        @if (item.Show)
+                        {
+                            <a>@item.Day</a>
+                        }
+                    </div>
                 }
             </div>
-        
-       
-            <div class="@yearClass">
-                @for (int i = 1340; i <= 1440; i++)
-                {
-                    var year = i;
-                    <a @onclick="()=>GoToYear(year)">@i</a>
-                }
-            </div>
-        
-     
-            <div class="@calendarClass">
-                <div class="year">
-                    <span @onclick="YearMode">@currentYear</span>
-                </div>
-                <div class="month">
-                    <a @onclick="PrevMonth" class="navigation">&#8249;</a>
-                    <span @onclick="MonthMode">@fullMonthName</span>
-                    <a @onclick="NextMonth" class="navigation">&#8250;</a>
-                </div>
-                <div class="week">
-                    @foreach (var name in PersianDateHelper.WeekNames)
-                    {
-                        <div class="day-name">
-                            <span>@name</span>
-                        </div>
-                    }
-                    @foreach (var item in cells)
-                    {
-                        var dayClass = item.Show ? "day" : "";
-                        if (item.Show && selectedDate.Value.Date == item.Date.Date)
-                            dayClass = $"{dayClass} current";
-                        <div class="@dayClass" @onclick="()=>SelectDate(item.Date)">
-                            @if (item.Show)
-                            {
-                                <a>@item.Day</a>
-                            }
-                        </div>
-                    }
-                </div>
-            </div>
-        
+        </div>
+
     </div>
 
 </div>
@@ -279,11 +279,11 @@
 
     void Clear()
     {
-        Date = selectedDate = null;
-        selectedDateInPersianFormat = string.Empty;
-        openPicker = false;
-        pickerClass = "persian-date-wrapper d-none";
-        calendarClass = "calendar d-none";
-        DateChanged.InvokeAsync(null);
+            Date = selectedDate = null;
+            selectedDateInPersianFormat = string.Empty;
+            openPicker = false;
+            pickerClass = "persian-date-wrapper d-none";
+            calendarClass = "calendar d-none";
+            DateChanged.InvokeAsync(null);
     }
 }

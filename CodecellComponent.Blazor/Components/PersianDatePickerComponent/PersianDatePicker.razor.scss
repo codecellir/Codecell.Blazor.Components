@@ -36,16 +36,14 @@
             font-weight: 100;
 
             &:hover {
-                border: 1px solid #dcdcdc;
-                border-radius: 8px;
-                background: #dcdcdc;
                 cursor: pointer;
             }
         }
     }
 
     .persian-date-wrapper {
-        position: relative;
+        position: absolute;
+        right:0;
         z-index: 999;
         background: #fff;
         width: 240px;
