@@ -18,6 +18,11 @@ namespace CodecellComponent.Blazor
             var module = await moduleTask.Value;
             await module.InvokeVoidAsync("addOutSideClickHandler", elemntId, dotNetObject);
         }
+        public async Task RemoveOutSideClickHandler(string elemntId)
+        {
+            var module = await moduleTask.Value;
+            await module.InvokeVoidAsync("removeOutSideClickHandler", elemntId);
+        }
 
         public async ValueTask DisposeAsync()
         {

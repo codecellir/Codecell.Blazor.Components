@@ -1,23 +1,28 @@
-//window.outsideClickHandler = {
-//    addEvent: function (elementId, dotnetHelper)
-//    {
-//        window.addEventListener("click", (e) =>
-//        {
-//            if (!document.getElementById(elementId).contains(e.target))
-//            {
-//                dotnetHelper.invokeMethodAsync("InvokeClickOutside");
-//            }
-//        });
-//    }
-//};
+
+const outsideClickHandlers = new Map();
 
 export function addOutSideClickHandler(elementId, dotnetHelper)
 {
-    window.addEventListener("click", (e) =>
+    const handler = (e) =>
     {
         if (!document.getElementById(elementId).contains(e.target))
         {
             dotnetHelper.invokeMethodAsync("InvokeClickOutside");
         }
-    });
+    };
+
+    window.addEventListener("click", handler);
+    outsideClickHandlers.set(elementId, handler);
 }
+
+export function removeOutSideClickHandler(elementId)
+{
+    const handler = outsideClickHandlers.get(elementId);
+
+    if (handler)
+    {
+        window.removeEventListener("click", handler);
+        outsideClickHandlers.delete(elementId);
+    }
+}
+
