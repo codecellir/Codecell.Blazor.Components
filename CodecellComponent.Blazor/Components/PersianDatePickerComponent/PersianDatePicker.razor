@@ -2,7 +2,12 @@
 
 <div class="persian-date-input" id="@ComponentId">
     <div class="input-wrapper">
-        <input class="p-date" readonly @onclick="OpenPicker" value="@selectedDateInPersianFormat" />
+        <span class="label">@Label</span>
+        <input class="p-date" readonly 
+               @onclick="OpenPicker"
+               placeholder="@PlaceHolder"
+               value="@selectedDateInPersianFormat"/>
+
         @if (!string.IsNullOrWhiteSpace(selectedDateInPersianFormat))
         {
             <a @onclick="Clear" class="clear">&#10006;</a>

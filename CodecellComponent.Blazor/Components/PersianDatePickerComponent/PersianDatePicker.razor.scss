@@ -5,6 +5,16 @@
 
     .input-wrapper {
         position: relative;
+        display: flex;
+        flex-flow: column;
+
+        .label {
+            direction: rtl;
+            padding-right: 7px;
+            margin-bottom: 2px;
+            font-size: 13px;
+            color: #5b5959;
+        }
 
         .p-date {
             font-size: 14px;
@@ -16,7 +26,8 @@
             border-radius: 4px;
             cursor: pointer;
             direction: rtl;
-            width:100%;
+            width: 100%;
+
             &:focus-visible {
                 outline: 0;
             }
@@ -31,7 +42,7 @@
             align-items: center;
             text-decoration: none;
             font-size: 14px;
-            top: 5px;
+            top: 28px;
             color: #bbb8b8;
             font-weight: 100;
 
@@ -43,7 +54,7 @@
 
     .persian-date-wrapper {
         position: absolute;
-        right:0;
+        right: 0;
         z-index: 999;
         background: #fff;
         width: 240px;

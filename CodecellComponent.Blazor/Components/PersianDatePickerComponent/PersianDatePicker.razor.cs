@@ -7,6 +7,8 @@ namespace CodecellComponent.Blazor.Components.PersianDatePickerComponent
     {
         [Inject] public CodecellJsInterop JsInterop { get; set; }
 
+        [Parameter] public string PlaceHolder { get; set; }
+        [Parameter] public string Label { get; set; } = "تاریخ";
         [Parameter] public DateTime? Date { get; set; }
 
         [Parameter] public EventCallback<DateTime?> DateChanged { get; set; }
