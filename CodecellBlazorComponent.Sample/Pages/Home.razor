@@ -4,8 +4,13 @@
 
 <h1>Hello, world!</h1>
 
-<div class="row">
+
+<div class="row" style="direction:rtl">
     <div class="col-md-4">
+        <input class="form-control" />
+    </div>
+    <div class="col-md-12"></div>
+    <div class="col-md-4 mt-3">
         <PersianDatePicker @bind-Date="myDate"
                            PlaceHolder="تاریخ تولد"
                            Label="تولد شما:"
