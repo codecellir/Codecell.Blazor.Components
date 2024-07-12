@@ -26,6 +26,11 @@ using CodecellComponent.Blazor;
 builder.Services.AddCodecellBlazor();
 ```
 
+Add style references
+``` Html
+    <link href="_content/CodecellComponent.Blazor/codecell.css" rel="stylesheet" />
+```
+
 ``` Razor
 @page "/"
 
