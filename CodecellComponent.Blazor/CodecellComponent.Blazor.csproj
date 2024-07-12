@@ -9,7 +9,21 @@
 		<Authors>Sohrab Gheisari</Authors>
 		<Company>codecell.ir</Company>
 		<PackageTags>blazor,picker,persiandatePicker,datePicker</PackageTags>
+		<Description>Component Collection for Blazor</Description>
+		<PackageIcon>logo.png</PackageIcon>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Include="..\logo.png">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	  <None Include="..\README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
 
 
 	<ItemGroup>
