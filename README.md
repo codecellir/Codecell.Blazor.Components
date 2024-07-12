@@ -11,12 +11,12 @@ Custom Components for Blazor
 - Date Change Event Callback
 
 ## Installation
-You can download the latest version of `CodecellComponent.Blazor` from [Github repository](https://github.com/codecellir/Codecell.MAUI.Controls).
+You can download the latest version of `CodecellComponent.Blazor` from [Github repository](https://github.com/codecellir/Codecell.Blazor.Components).
 To install via `nuget`:
 ```
 Install-Package CodecellComponent.Blazor -Version 0.0.1
 ```
-Install from [Nuget](https://www.nuget.org/packages/Codecell.PersiandatePicker.MAUI) directly.
+Install from [Nuget](https://www.nuget.org/packages/CodecellComponent.Blazor) directly.
 
 ## How to use
 Register Codecell Persian DatePicker Control to project container in `Program.cs` file:
@@ -26,10 +26,6 @@ using CodecellComponent.Blazor;
 builder.Services.AddCodecellBlazor();
 ```
 
-use this `xmlns`:
-```
-xmlns:controls="https://codecell.ir/maui/controls/persianDatePicker"
-```
 ``` Razor
 @page "/"
 
