@@ -44,6 +44,7 @@
             text-decoration: none;
             font-size: 14px;
             top: 28px;
+            left: 3px;
             color: #bbb8b8;
             font-weight: 100;
 
@@ -58,7 +59,7 @@
         right: 0;
         z-index: 999;
         background: #fff;
-        width: 240px;
+        width: 260px;
         direction: rtl;
         display: flex;
         justify-content: center;
@@ -97,7 +98,7 @@
             justify-content: start;
             gap: 10px;
             flex-wrap: wrap;
-            max-height: 200px;
+            max-height: 280px;
             overflow-y: auto;
 
             a {
@@ -160,8 +161,9 @@
         .week {
             display: grid;
             grid-template-columns: 32px 32px 32px 32px 32px 32px 32px;
-            grid-column-gap: 0px;
+            grid-column-gap: 3px;
             direction: rtl;
+            margin-top: 10px;
 
             .day-name {
                 font-size: 14px;
@@ -198,6 +200,58 @@
 
         .week > * {
             direction: ltr;
+        }
+    }
+
+    &.dark {
+        .input-wrapper {
+            /* .p-date {
+                background-color: #fff;
+                border-color: #fff;
+
+                &:focus-visible {
+                    outline-offset: 2px;
+                    outline-color: #fff;
+                }
+            }*/
+
+            .label {
+                color: #fff;
+            }
+        }
+
+        .persian-date-wrapper {
+            color: #fff;
+            background: #17212b;
+
+            .month {
+                .navigation {
+                    background: #fff;
+                    border-radius: 17px;
+
+                    &:hover {
+                        border: 1px solid #fff;
+                    }
+                }
+            }
+
+            .month-select, .year-select {
+                a {
+                    &:hover {
+                        background: #fff;
+                        color: #000;
+                    }
+                }
+            }
+
+            .week {
+                .day {
+                    &:hover {
+                        background: #fff;
+                        color: #000;
+                    }
+                }
+            }
         }
     }
 }

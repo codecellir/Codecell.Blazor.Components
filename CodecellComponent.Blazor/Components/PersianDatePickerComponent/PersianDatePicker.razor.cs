@@ -7,6 +7,7 @@ namespace CodecellComponent.Blazor.Components.PersianDatePickerComponent
     {
         [Inject] public CodecellJsInterop JsInterop { get; set; }
 
+        [Parameter] public bool DarkMode { get; set; }
         [Parameter] public string PlaceHolder { get; set; }
         [Parameter] public string Label { get; set; } = "تاریخ";
         [Parameter] public DateTime? Date { get; set; }
@@ -27,6 +28,7 @@ namespace CodecellComponent.Blazor.Components.PersianDatePickerComponent
         int currentYear;
         int currentDay;
         bool monthMode, yearMode;
+        string componentClass = "persian-date-input";
         string pickerClass = "persian-date-wrapper d-none";
         string monthClass = "month-select d-none";
         string yearClass = "year-select d-none";
@@ -38,6 +40,11 @@ namespace CodecellComponent.Blazor.Components.PersianDatePickerComponent
             if (Date.HasValue)
             {
                 SetPersianFormatText(Date.Value);
+            }
+
+            if (DarkMode)
+            {
+                componentClass = "persian-date-input dark";
             }
         }
 
