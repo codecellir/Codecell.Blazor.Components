@@ -27,7 +27,7 @@ namespace CodecellComponent.Blazor.Components.PersianDatePickerComponent
         int currentMonth;
         int currentYear;
         int currentDay;
-        bool monthMode, yearMode;
+       // bool monthMode, yearMode;
         string componentClass = "persian-date-input";
         string pickerClass = "persian-date-wrapper d-none";
         string monthClass = "month-select d-none";
@@ -60,8 +60,10 @@ namespace CodecellComponent.Blazor.Components.PersianDatePickerComponent
         [JSInvokable]
         public void InvokeClickOutside()
         {
-            pickerClass = "persian-date-wrapper d-none";
-            calendarClass = "calendar d-none";
+           pickerClass = "persian-date-wrapper d-none";
+           monthClass = "month-select d-none";
+           yearClass = "year-select d-none";
+           calendarClass = "calendar d-none";
             StateHasChanged();
         }
 
@@ -162,16 +164,12 @@ namespace CodecellComponent.Blazor.Components.PersianDatePickerComponent
 
         void MonthMode()
         {
-            monthMode = true;
-            yearMode = false;
             monthClass = "month-select";
             calendarClass = "calendar d-none";
         }
 
         void YearMode()
         {
-            yearMode = true;
-            monthMode = false;
             yearClass = "year-select";
             calendarClass = "calendar d-none";
         }
@@ -183,7 +181,6 @@ namespace CodecellComponent.Blazor.Components.PersianDatePickerComponent
                 currentDay = 1;
 
             var date = new DateTime(currentYear, currentMonth, currentDay, pc);
-            monthMode = yearMode = false;
             monthClass = "month-select d-none";
             calendarClass = "calendar";
             PrepareCells(date);
@@ -197,7 +194,6 @@ namespace CodecellComponent.Blazor.Components.PersianDatePickerComponent
                 currentDay = 1;
 
             var date = new DateTime(currentYear, currentMonth, currentDay, pc);
-            monthMode = yearMode = false;
             yearClass = "year-select d-none";
             calendarClass = "calendar";
             PrepareCells(date);
