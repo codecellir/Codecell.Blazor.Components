@@ -66,3 +66,5 @@ xmlns:controls="https://codecell.ir/maui/controls/persianDatePicker"
 
 
 ## Screenshots
+![App Screenshot](https://github.com/codecellir/Codecell.Blazor.Components/blob/master/screenshots/light.png?raw=true)
+![App Screenshot](https://github.com/codecellir/Codecell.Blazor.Components/blob/master/screenshots/dark.png?raw=true)
