@@ -28,7 +28,7 @@ builder.Services.AddCodecellBlazor();
 
 Add using to _imports.razor
 ``` C#
-    @using Codecell.Component.Blazor.Components.PersianDatePickerComponent
+@using Codecell.Component.Blazor.Components.PersianDatePickerComponent
 ```
 
 ``` Razor
@@ -36,7 +36,7 @@ Add using to _imports.razor
 
 Add style references
 ``` Html
-    <link href="_content/Codecell.Component.Blazor/codecell.css" rel="stylesheet" />
+<link href="_content/Codecell.Component.Blazor/codecell.css" rel="stylesheet" />
 ```
 
 ``` Razor
