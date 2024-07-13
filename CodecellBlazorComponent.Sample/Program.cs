@@ -1,5 +1,5 @@
 using CodecellBlazorComponent.Sample;
-using CodecellComponent.Blazor;
+using Codecell.Component.Blazor;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 

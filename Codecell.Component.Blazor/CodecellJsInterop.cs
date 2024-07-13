@@ -1,6 +1,6 @@
 using Microsoft.JSInterop;
 
-namespace CodecellComponent.Blazor
+namespace Codecell.Component.Blazor
 {
 
     public class CodecellJsInterop : IAsyncDisposable
@@ -10,7 +10,7 @@ namespace CodecellComponent.Blazor
         public CodecellJsInterop(IJSRuntime jsRuntime)
         {
             moduleTask = new(() => jsRuntime.InvokeAsync<IJSObjectReference>(
-                "import", "./_content/CodecellComponent.Blazor/codecell.js").AsTask());
+                "import", "./_content/Codecell.Component.Blazor/codecell.js").AsTask());
         }
 
         public async Task AddOutSideClickHandler(string elemntId, object dotNetObject)

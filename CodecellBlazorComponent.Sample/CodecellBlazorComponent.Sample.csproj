@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CodecellComponent.Blazor\CodecellComponent.Blazor.csproj" />
+    <ProjectReference Include="..\Codecell.Component.Blazor\Codecell.Component.Blazor.csproj" />
   </ItemGroup>
 
   <ItemGroup>

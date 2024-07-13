@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace CodecellComponent.Blazor
+namespace Codecell.Component.Blazor
 {
     public static class ServiceCollectionExtensions
     {
