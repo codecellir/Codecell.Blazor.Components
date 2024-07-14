@@ -16,8 +16,8 @@
         <div class="col-12"></div>
         <div class="col-md-4 mt-3">
             <PersianDatePicker @bind-Date="Model.BirthDate"
-                               PlaceHolder="تاریخ تولد"
-                               Label="تاریخ تولد:"
+                               PlaceHolder="تاریخ ازدواج مهتا و علی رضا"
+                               Label="تاریخ ازدواج مهتا و علی رضا:"
                                ValueChanged="DateChanged"
                                DarkMode="false"
                                For="()=>Model.BirthDate" 
@@ -46,7 +46,7 @@
     {
         public string Name { get; set; }
 
-        [Required(ErrorMessage ="تاریخ تولد اجباری است")]
+        [Required(ErrorMessage ="تاریخ ازدواج مهتا و علی رضا اجباری است")]
         public DateTime? BirthDate { get; set; }
     }
 
