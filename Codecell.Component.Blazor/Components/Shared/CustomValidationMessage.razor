@@ -1,0 +1,7 @@
+﻿@typeparam TValue
+@inherits ValidationMessageBase<TValue>
+
+@foreach (var message in ValidationMessages)
+{
+    <p class="codecell-input-error">@message</p>
+}

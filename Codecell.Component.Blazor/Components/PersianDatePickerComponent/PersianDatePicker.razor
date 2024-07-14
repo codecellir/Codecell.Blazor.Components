@@ -6,7 +6,10 @@
                @onclick="OpenPicker"
                placeholder="@PlaceHolder"
                value="@selectedDateInPersianFormat" />
-
+        @if (For is not null)
+        {
+            <CustomValidationMessage For="For" OnValidationChanged="OnValidationChanged" @ref="validation" />
+        }
         @if (!string.IsNullOrWhiteSpace(selectedDateInPersianFormat))
         {
             <a @onclick="Clear" class="clear">&#10006;</a>

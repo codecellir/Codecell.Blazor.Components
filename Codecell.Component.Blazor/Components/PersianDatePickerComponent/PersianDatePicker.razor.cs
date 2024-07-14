@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Codecell.Component.Blazor.Components.Shared;
+using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using System.Linq.Expressions;
 
 namespace Codecell.Component.Blazor.Components.PersianDatePickerComponent;
 
@@ -8,15 +10,16 @@ public partial class PersianDatePicker : IDisposable
     [Inject] public CodecellJsInterop JsInterop { get; set; }
 
     [Parameter] public bool DarkMode { get; set; }
+    [Parameter] public bool Immediate { get; set; }
     [Parameter] public string PlaceHolder { get; set; }
     [Parameter] public string Label { get; set; } = "تاریخ";
     [Parameter] public DateTime? Date { get; set; }
-
+    [Parameter] public Expression<Func<DateTime?>> For { get; set; }
     [Parameter] public EventCallback<DateTime?> DateChanged { get; set; }
     [Parameter] public EventCallback<DateTime?> ValueChanged { get; set; }
 
     DotNetObjectReference<PersianDatePicker>? objRef;
-
+    CustomValidationMessage<DateTime?> validation;
     DateTime? selectedDate;
     string selectedDateInPersianFormat;
     System.Globalization.PersianCalendar pc = new();
@@ -123,8 +126,11 @@ public partial class PersianDatePicker : IDisposable
         calendarClass = "calendar d-none";
         DateChanged.InvokeAsync(selectedDate);
         ValueChanged.InvokeAsync(selectedDate);
-
         SetPersianFormatText(Date.Value);
+        if (Immediate)
+        {
+            validation.Immediate();
+        }
     }
 
     void PrevMonth()
@@ -230,6 +236,13 @@ public partial class PersianDatePicker : IDisposable
         calendarClass = "calendar d-none";
         DateChanged.InvokeAsync(null);
         ValueChanged.InvokeAsync(null);
+    }
+
+    void OnValidationChanged(bool status)
+    {
+        var hasError = !status;
+
+        componentClass = hasError ? $"persian-date-input error" : "persian-date-input";
     }
 
     public void Dispose()

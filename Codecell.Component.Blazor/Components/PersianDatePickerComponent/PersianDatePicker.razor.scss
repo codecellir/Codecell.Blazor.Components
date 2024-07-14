@@ -54,6 +54,19 @@
         }
     }
 
+    &.error {
+        .input-wrapper {
+            .p-date {
+                border-color: #f94949;
+
+                &:focus-visible {
+                    outline-offset: 2px;
+                    outline-color: #f94949;
+                }
+            }
+        }
+    }
+
     .persian-date-wrapper {
         position: absolute;
         right: 0;
