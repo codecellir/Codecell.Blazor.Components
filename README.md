@@ -118,7 +118,7 @@ Validation Sample
     {
         public string Name { get; set; }
 
-        [Required]
+         [Required(ErrorMessage ="تاریخ تولد اجباری است")]
         public DateTime? BirthDate { get; set; }
     }
 
