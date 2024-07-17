@@ -2,7 +2,8 @@
 <div class="@componentClass" id="@ComponentId">
     <div class="input-wrapper">
         <span class="label">@Label</span>
-        <input class="p-date" readonly
+        <input class="p-date"
+               id="@InputId"
                @onclick="OpenPicker"
                placeholder="@PlaceHolder"
                value="@selectedDateInPersianFormat" />

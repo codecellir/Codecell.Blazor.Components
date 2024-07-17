@@ -26,6 +26,7 @@ public partial class PersianDatePicker : IDisposable
     List<DateCellModel> cells = new();
 
     private const string ComponentId = "codecell_persian_date_picker_component";
+    private const string InputId = "codecell-p-date";
     string fullMonthName;
     int currentMonth;
     int currentYear;
@@ -56,6 +57,7 @@ public partial class PersianDatePicker : IDisposable
         if (firstRender)
         {
             await JsInterop.AddOutSideClickHandler(ComponentId, objRef);
+            await JsInterop.AddDateMask(InputId);
         }
     }
 
