@@ -3,14 +3,14 @@ using Microsoft.JSInterop;
 namespace Codecell.Component.Blazor
 {
 
-    public class CodecellJsInterop : IAsyncDisposable
+    public class PersianDatePickerJsInterop : IAsyncDisposable
     {
         private readonly Lazy<Task<IJSObjectReference>> moduleTask;
 
-        public CodecellJsInterop(IJSRuntime jsRuntime)
+        public PersianDatePickerJsInterop(IJSRuntime jsRuntime)
         {
             moduleTask = new(() => jsRuntime.InvokeAsync<IJSObjectReference>(
-                "import", "./_content/Codecell.Component.Blazor/codecell.js").AsTask());
+                "import", "./_content/Codecell.Component.Blazor/persianDatePicker.js").AsTask());
         }
 
         public async Task AddOutSideClickHandler(string elemntId, object dotNetObject)
@@ -27,6 +27,16 @@ namespace Codecell.Component.Blazor
         {
             var module = await moduleTask.Value;
             await module.InvokeVoidAsync("dateMask", elemntId, dotNetObject);
+        }
+        public async Task ResetMask(string elemntId)
+        {
+            var module = await moduleTask.Value;
+            await module.InvokeVoidAsync("resetMask", elemntId);
+        }
+        public async Task<string> GetValue(string elemntId)
+        {
+            var module = await moduleTask.Value;
+            return await module.InvokeAsync<string>("getValue", elemntId);
         }
 
         public async ValueTask DisposeAsync()

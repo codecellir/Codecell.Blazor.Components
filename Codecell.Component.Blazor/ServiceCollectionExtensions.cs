@@ -10,7 +10,7 @@ namespace Codecell.Component.Blazor
             {
                 throw new ArgumentNullException(nameof(services));
             }
-            services.AddScoped<CodecellJsInterop>();
+            services.AddScoped<PersianDatePickerJsInterop>();
             return services;
         }
     }

@@ -59,5 +59,26 @@ public static class PersianDateHelper
         var day = pc.GetDayOfMonth(date);
         return $"{year}/{month.ToString("D2")}/{day.ToString("D2")}";
     }
+    public static DateTime? ToGeorgianDate(this string persianDateText)
+    {
+
+        try
+        {
+            if (string.IsNullOrWhiteSpace(persianDateText))
+                return null;
+
+            var splited = persianDateText.Split('/');
+
+            var year = int.Parse(splited[0]);
+            var month = int.Parse(splited[1]);
+            var day = int.Parse(splited[2]);
+
+            return new DateTime(year, month, day, pc);
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+    }
 
 }

@@ -7,7 +7,7 @@ namespace Codecell.Component.Blazor.Components.PersianDatePickerComponent;
 
 public partial class PersianDatePicker : IDisposable
 {
-    [Inject] public CodecellJsInterop JsInterop { get; set; }
+    [Inject] public PersianDatePickerJsInterop JsInterop { get; set; }
 
     [Parameter] public bool DarkMode { get; set; }
     [Parameter] public bool Immediate { get; set; }
@@ -40,6 +40,8 @@ public partial class PersianDatePicker : IDisposable
     protected override void OnInitialized()
     {
         objRef = DotNetObjectReference.Create(this);
+
+        Clear();
 
         if (Date.HasValue)
         {
@@ -75,8 +77,16 @@ public partial class PersianDatePicker : IDisposable
 
 
     [JSInvokable]
-    public void InvokeMakComplete()
+    public async Task InvokeMakComplete()
     {
+        var persiandateValue = await JsInterop.GetValue(InputId);
+        var date = persiandateValue.ToGeorgianDate();
+
+        if (date.HasValue)
+        {
+            SelectDate(date.Value);
+            StateHasChanged();
+        }
 
     }
 
@@ -241,11 +251,14 @@ public partial class PersianDatePicker : IDisposable
     void Clear()
     {
         Date = selectedDate = null;
-        selectedDateInPersianFormat = string.Empty;
+        selectedDateInPersianFormat = "____/__/__";
         pickerClass = "persian-date-wrapper d-none";
         calendarClass = "calendar d-none";
+        monthClass = "month-select d-none";
+        yearClass = "year-select d-none";
         DateChanged.InvokeAsync(null);
         ValueChanged.InvokeAsync(null);
+        JsInterop.ResetMask(InputId);
     }
 
     void OnValidationChanged(bool status)

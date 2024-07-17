@@ -33,26 +33,25 @@ export function dateMask(elementId, dotnetHelper)
     var mask = IMask(document.getElementById(elementId), {
         mask: 'YYYY/MM/DD',
         lazy: false,
-        placeholderChar: '_',
-        displayChar: '',
+        placeholderChar: '_',  
         blocks: {
-            DD: {
+            YYYY: {
                 mask: IMask.MaskedRange,
-                from: 1,
-                to: 31,
-                maxLength: 2,
-            },
+                from: 1300,
+                to: 1500,
+            }  ,
             MM: {
                 mask: IMask.MaskedRange,
                 from: 1,
                 to: 12,
                 maxLength: 2,
             },
-            YYYY: {
+            DD: {
                 mask: IMask.MaskedRange,
-                from: 1300,
-                to: 1500,
-            }
+                from: 1,
+                to: 31,
+                maxLength: 2,
+            },
         },
     })
 
@@ -61,7 +60,7 @@ export function dateMask(elementId, dotnetHelper)
         dotnetHelper.invokeMethodAsync("InvokeMakComplete");
     });
 
-    mask.set(elementId, mask);
+    masks.set(elementId, mask);
 }
 
 export function resetMask(elementId)
@@ -70,7 +69,11 @@ export function resetMask(elementId)
 
     if (mask)
     {
-        masked.reset();
+        mask.reset();
     }
+}  
+export function getValue(elementId)
+{
+    return document.getElementById(elementId).value;
 }
 
