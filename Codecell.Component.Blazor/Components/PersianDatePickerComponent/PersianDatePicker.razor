@@ -6,7 +6,9 @@
                id="@InputId"
                @onclick="OpenPicker"
                placeholder="@PlaceHolder"
-               value="@selectedDateInPersianFormat"/>
+               @bind-value="@selectedDateInPersianFormat"
+               @bind-value:event="oninput"
+               @onchange="OnChangeHandler"/>
         @if (For is not null)
         {
             <CustomValidationMessage For="For" OnValidationChanged="OnValidationChanged" @ref="validation" />

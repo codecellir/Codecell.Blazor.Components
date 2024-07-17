@@ -91,6 +91,22 @@ public partial class PersianDatePicker : IDisposable
     }
 
 
+    void OnChangeHandler(ChangeEventArgs e)
+    {
+        var value = e.Value.ToString();
+
+        var date = value.ToGeorgianDate();
+
+        if (!date.HasValue)
+        {
+            Date = null;
+            DateChanged.InvokeAsync(Date);
+            ValueChanged.InvokeAsync(Date);
+            StateHasChanged();
+        }
+    }
+
+
     void PrepareCells(DateTime date)
     {
         cells = new();
