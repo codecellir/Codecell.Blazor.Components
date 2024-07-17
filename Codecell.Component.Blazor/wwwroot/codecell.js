@@ -2,6 +2,7 @@
 import './imask.js';
 
 const outsideClickHandlers = new Map();
+const masks = new Map();
 
 export function addOutSideClickHandler(elementId, dotnetHelper)
 {
@@ -26,12 +27,12 @@ export function removeOutSideClickHandler(elementId)
         window.removeEventListener("click", handler);
         outsideClickHandlers.delete(elementId);
     }
-} 
-export function dateMask(elementId)
+}
+export function dateMask(elementId, dotnetHelper)
 {
-    IMask(document.getElementById(elementId), {
-        mask: 'YYYY/MM/DD',        
-        lazy: false, 
+    var mask = IMask(document.getElementById(elementId), {
+        mask: 'YYYY/MM/DD',
+        lazy: false,
         placeholderChar: '_',
         displayChar: '',
         blocks: {
@@ -54,5 +55,22 @@ export function dateMask(elementId)
             }
         },
     })
+
+    mask.on('complete', () =>
+    {
+        dotnetHelper.invokeMethodAsync("InvokeMakComplete");
+    });
+
+    mask.set(elementId, mask);
+}
+
+export function resetMask(elementId)
+{
+    const mask = masks.get(elementId);
+
+    if (mask)
+    {
+        masked.reset();
+    }
 }
 

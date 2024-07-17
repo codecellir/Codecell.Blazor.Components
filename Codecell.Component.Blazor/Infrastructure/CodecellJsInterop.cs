@@ -23,10 +23,10 @@ namespace Codecell.Component.Blazor
             var module = await moduleTask.Value;
             await module.InvokeVoidAsync("removeOutSideClickHandler", elemntId);
         }
-        public async Task AddDateMask(string elemntId)
+        public async Task AddDateMask(string elemntId, object dotNetObject)
         {
             var module = await moduleTask.Value;
-            await module.InvokeVoidAsync("dateMask", elemntId);
+            await module.InvokeVoidAsync("dateMask", elemntId, dotNetObject);
         }
 
         public async ValueTask DisposeAsync()

@@ -57,7 +57,7 @@ public partial class PersianDatePicker : IDisposable
         if (firstRender)
         {
             await JsInterop.AddOutSideClickHandler(ComponentId, objRef);
-            await JsInterop.AddDateMask(InputId);
+            await JsInterop.AddDateMask(InputId, objRef);
         }
     }
 
@@ -70,6 +70,14 @@ public partial class PersianDatePicker : IDisposable
         yearClass = "year-select d-none";
         calendarClass = "calendar d-none";
         StateHasChanged();
+    }
+
+
+
+    [JSInvokable]
+    public void InvokeMakComplete()
+    {
+
     }
 
 
