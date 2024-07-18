@@ -106,14 +106,9 @@ public partial class PersianDatePicker : IDisposable
     }
     void OnKeydownHandler(KeyboardEventArgs e)
     {
-        var date = persianDateFormat.ToGeorgianDate();
-
-        if (!date.HasValue)
+        if (e.CtrlKey && e.Key == "Enter" && !Date.HasValue)
         {
-            Date = null;
-            DateChanged.InvokeAsync(Date);
-            ValueChanged.InvokeAsync(Date);
-            StateHasChanged();
+            SelectDate(DateTime.Now);
         }
     }
 
@@ -278,7 +273,7 @@ public partial class PersianDatePicker : IDisposable
     void Clear()
     {
         Date = selectedDate = null;
-        persianDateFormat = "____/__/__";
+        persianDateFormat = "1___/__/__";
         pickerClass = "persian-date-wrapper d-none";
         calendarClass = "calendar d-none";
         monthClass = "month-select d-none";

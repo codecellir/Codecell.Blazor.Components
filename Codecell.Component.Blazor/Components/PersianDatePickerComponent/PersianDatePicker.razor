@@ -9,8 +9,7 @@
                @bind-value="@persianDateFormat"
                @bind-value:event="oninput"
                @onkeyup=OnKeyupHandler
-               @onkeydown=OnKeydownHandler
-               @onkeydown:preventDefault />
+               @onkeydown=OnKeydownHandler />
         @if (For is not null)
         {
             <CustomValidationMessage For="For" OnValidationChanged="OnValidationChanged" @ref="validation" />
