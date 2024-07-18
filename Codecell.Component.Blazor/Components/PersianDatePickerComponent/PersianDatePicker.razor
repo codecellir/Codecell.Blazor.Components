@@ -4,16 +4,18 @@
         <span class="label">@Label</span>
         <input class="p-date"
                id="@InputId"
-               @onclick="OpenPicker"
+               @onclick=OpenPicker
                placeholder="@PlaceHolder"
-               @bind-value="@selectedDateInPersianFormat"
+               @bind-value="@persianDateFormat"
                @bind-value:event="oninput"
-               @onchange="OnChangeHandler"/>
+               @onkeyup=OnKeyupHandler
+               @onkeydown=OnKeydownHandler
+               @onkeydown:preventDefault />
         @if (For is not null)
         {
             <CustomValidationMessage For="For" OnValidationChanged="OnValidationChanged" @ref="validation" />
         }
-        @if (!string.IsNullOrWhiteSpace(selectedDateInPersianFormat))
+        @if (!string.IsNullOrWhiteSpace(persianDateFormat))
         {
             <a @onclick="Clear" class="clear">&#10006;</a>
         }

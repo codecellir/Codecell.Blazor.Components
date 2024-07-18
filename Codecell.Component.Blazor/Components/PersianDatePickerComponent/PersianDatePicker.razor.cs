@@ -1,5 +1,6 @@
 ﻿using Codecell.Component.Blazor.Components.Shared;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 using System.Linq.Expressions;
 
@@ -21,7 +22,7 @@ public partial class PersianDatePicker : IDisposable
     DotNetObjectReference<PersianDatePicker>? objRef;
     CustomValidationMessage<DateTime?> validation;
     DateTime? selectedDate;
-    string selectedDateInPersianFormat;
+    string persianDateFormat;
     System.Globalization.PersianCalendar pc = new();
     List<DateCellModel> cells = new();
 
@@ -91,11 +92,21 @@ public partial class PersianDatePicker : IDisposable
     }
 
 
-    void OnChangeHandler(ChangeEventArgs e)
+    void OnKeyupHandler(KeyboardEventArgs e)
     {
-        var value = e.Value.ToString();
+        var date = persianDateFormat.ToGeorgianDate();
 
-        var date = value.ToGeorgianDate();
+        if (!date.HasValue)
+        {
+            Date = null;
+            DateChanged.InvokeAsync(Date);
+            ValueChanged.InvokeAsync(Date);
+            StateHasChanged();
+        }
+    }
+    void OnKeydownHandler(KeyboardEventArgs e)
+    {
+        var date = persianDateFormat.ToGeorgianDate();
 
         if (!date.HasValue)
         {
@@ -261,13 +272,13 @@ public partial class PersianDatePicker : IDisposable
         currentYear = pc.GetYear(date);
         currentMonth = pc.GetMonth(date);
         currentDay = pc.GetDayOfMonth(date);
-        selectedDateInPersianFormat = $"{currentYear}/{currentMonth.ToString("D2")}/{currentDay.ToString("D2")}";
+        persianDateFormat = $"{currentYear}/{currentMonth.ToString("D2")}/{currentDay.ToString("D2")}";
     }
 
     void Clear()
     {
         Date = selectedDate = null;
-        selectedDateInPersianFormat = "____/__/__";
+        persianDateFormat = "____/__/__";
         pickerClass = "persian-date-wrapper d-none";
         calendarClass = "calendar d-none";
         monthClass = "month-select d-none";
