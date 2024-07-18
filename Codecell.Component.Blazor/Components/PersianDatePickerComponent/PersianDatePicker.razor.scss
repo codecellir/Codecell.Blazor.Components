@@ -16,9 +16,10 @@
             color: #5b5959;
         }
 
-       .p-date {
+        .p-date {
             font-size: 14px;
-            text-align: center;
+            text-align: right;
+            padding-right: 10px;
             border: 1px solid #ced4da;
             line-height: 30px;
             color: #212529;
@@ -209,6 +210,25 @@
                     font-weight: bold;
                 }
             }
+
+            .today {
+                width: 245px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                a {
+                    width: 60px;
+                    height: 35px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background: #1dba85;
+                    cursor: pointer;
+                    color: #000;
+                    border-radius: 6px;
+                }
+            }
         }
 
         .week > * {
@@ -218,15 +238,6 @@
 
     &.dark {
         .input-wrapper {
-            /* .p-date {
-                background-color: #fff;
-                border-color: #fff;
-
-                &:focus-visible {
-                    outline-offset: 2px;
-                    outline-color: #fff;
-                }
-            }*/
 
             .label {
                 color: #fff;
@@ -264,10 +275,16 @@
                         color: #000;
                     }
                 }
+
+                .today {
+                    a {
+                    }
+                }
             }
         }
     }
 }
-.d-none{
-    display:none;
+
+.d-none {
+    display: none;
 }

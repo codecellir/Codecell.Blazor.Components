@@ -4,6 +4,7 @@
         <span class="label">@Label</span>
         <input class="p-date"
                id="@InputId"
+                data-mask-reverse="true"
                @onclick=OpenPicker
                placeholder="@PlaceHolder"
                @bind-value="@persianDateFormat"
@@ -31,7 +32,7 @@
 
 
         <div class="@yearClass">
-            @for (int i = 1340; i <= 1440; i++)
+            @for (int i = 1300; i <= 1500; i++)
             {
                 var year = i;
                 <a @onclick="()=>GoToYear(year)">@i</a>
@@ -67,6 +68,9 @@
                         }
                     </div>
                 }
+                <div class="today">
+                    <a @onclick="GoToToday">امروز</a>
+                </div>
             </div>
         </div>
 

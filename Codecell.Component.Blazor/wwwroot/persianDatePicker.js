@@ -31,7 +31,7 @@ export function removeOutSideClickHandler(elementId)
 export function dateMask(elementId, dotnetHelper)
 {
     var mask = IMask(document.getElementById(elementId), {
-        mask: 'YYYY/MM/DD',
+        mask: 'YYYY/MM/DD',       
         lazy: false,
         placeholderChar: '_',  
         blocks: {

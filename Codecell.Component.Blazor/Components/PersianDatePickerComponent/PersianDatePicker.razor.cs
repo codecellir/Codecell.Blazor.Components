@@ -22,22 +22,22 @@ public partial class PersianDatePicker : IDisposable
     DotNetObjectReference<PersianDatePicker>? objRef;
     CustomValidationMessage<DateTime?> validation;
     DateTime? selectedDate;
-    string persianDateFormat;
     System.Globalization.PersianCalendar pc = new();
     List<DateCellModel> cells = new();
 
     private const string ComponentId = "codecell_persian_date_picker_component";
     private const string InputId = "codecell-p-date";
-    string fullMonthName;
-    int currentMonth;
-    int currentYear;
-    int currentDay;
-
     string componentClass = "persian-date-input";
     string pickerClass = "persian-date-wrapper d-none";
     string monthClass = "month-select d-none";
     string yearClass = "year-select d-none";
     string calendarClass = "calendar d-none";
+    string persianDateFormat = string.Empty;
+    string fullMonthName = string.Empty;
+    int currentMonth;
+    int currentYear;
+    int currentDay;
+
     protected override void OnInitialized()
     {
         objRef = DotNetObjectReference.Create(this);
@@ -75,8 +75,6 @@ public partial class PersianDatePicker : IDisposable
         StateHasChanged();
     }
 
-
-
     [JSInvokable]
     public async Task InvokeMakComplete()
     {
@@ -90,8 +88,6 @@ public partial class PersianDatePicker : IDisposable
         }
 
     }
-
-
     void OnKeyupHandler(KeyboardEventArgs e)
     {
         var date = persianDateFormat.ToGeorgianDate();
@@ -111,8 +107,7 @@ public partial class PersianDatePicker : IDisposable
             SelectDate(DateTime.Now);
         }
     }
-
-
+    void GoToToday() => SelectDate(DateTime.Now);
     void PrepareCells(DateTime date)
     {
         cells = new();
@@ -160,7 +155,6 @@ public partial class PersianDatePicker : IDisposable
             }
         }
     }
-
     void SelectDate(DateTime date)
     {
         selectedDate = Date = date;
@@ -174,7 +168,6 @@ public partial class PersianDatePicker : IDisposable
             validation.Immediate();
         }
     }
-
     void PrevMonth()
     {
         if (currentMonth > 1)
@@ -189,10 +182,9 @@ public partial class PersianDatePicker : IDisposable
         if (currentMonth == 12 && !pc.IsLeapYear(currentYear) && currentDay > 29)
             currentDay = 1;
 
-        selectedDate = new DateTime(currentYear, currentMonth, currentDay, pc);
-        PrepareCells(selectedDate.Value);
+        var date = new DateTime(currentYear, currentMonth, currentDay, pc);
+        PrepareCells(date);
     }
-
     void NextMonth()
     {
         if (currentMonth < 12)
@@ -204,24 +196,21 @@ public partial class PersianDatePicker : IDisposable
             currentMonth = 1;
             currentYear++;
         }
-        selectedDate = new DateTime(currentYear, currentMonth, currentDay, pc);
+        var date = new DateTime(currentYear, currentMonth, currentDay, pc);
         if (currentMonth == 12 && !pc.IsLeapYear(currentYear) && currentDay > 29)
             currentDay = 1;
-        PrepareCells(selectedDate.Value);
+        PrepareCells(date);
     }
-
     void MonthMode()
     {
         monthClass = "month-select";
         calendarClass = "calendar d-none";
     }
-
     void YearMode()
     {
         yearClass = "year-select";
         calendarClass = "calendar d-none";
     }
-
     void GoToMonth(int month)
     {
         currentMonth = month;
@@ -234,7 +223,6 @@ public partial class PersianDatePicker : IDisposable
         PrepareCells(date);
 
     }
-
     void GoToYear(int year)
     {
         currentYear = year;
@@ -247,7 +235,6 @@ public partial class PersianDatePicker : IDisposable
         PrepareCells(date);
 
     }
-
     void OpenPicker()
     {
         if (pickerClass.Equals("persian-date-wrapper"))
@@ -261,7 +248,6 @@ public partial class PersianDatePicker : IDisposable
         pickerClass = "persian-date-wrapper";
         calendarClass = "calendar";
     }
-
     void SetPersianFormatText(DateTime date)
     {
         currentYear = pc.GetYear(date);
@@ -269,7 +255,6 @@ public partial class PersianDatePicker : IDisposable
         currentDay = pc.GetDayOfMonth(date);
         persianDateFormat = $"{currentYear}/{currentMonth.ToString("D2")}/{currentDay.ToString("D2")}";
     }
-
     void Clear()
     {
         Date = selectedDate = null;
@@ -282,14 +267,12 @@ public partial class PersianDatePicker : IDisposable
         ValueChanged.InvokeAsync(null);
         JsInterop.ResetMask(InputId);
     }
-
     void OnValidationChanged(bool status)
     {
         var hasError = !status;
 
         componentClass = hasError ? $"persian-date-input error" : "persian-date-input";
     }
-
     public void Dispose()
     {
         JsInterop.RemoveOutSideClickHandler(ComponentId);
