@@ -10,12 +10,13 @@ Custom Components for Blazor
 - Year Navigation
 - Date Change Event Callback
 - Validation
+- Mask Input
 
 ## Installation
 You can download the latest version of `Codecell.Component.Blazor` from [Github repository](https://github.com/codecellir/Codecell.Blazor.Components).
 To install via `nuget`:
 ```
-Install-Package Codecell.Component.Blazor -Version 0.1.0
+Install-Package Codecell.Component.Blazor -Version 0.2.0
 ```
 Install from [Nuget](https://www.nuget.org/packages/Codecell.Component.Blazor) directly.
 
