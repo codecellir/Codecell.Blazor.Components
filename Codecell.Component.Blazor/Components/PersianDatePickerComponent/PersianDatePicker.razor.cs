@@ -42,11 +42,15 @@ public partial class PersianDatePicker : IDisposable
     {
         objRef = DotNetObjectReference.Create(this);
 
+        var intitialDate = Date;
+
         Clear();
 
-        if (Date.HasValue)
+        if (intitialDate.HasValue)
         {
-            SetPersianFormatText(Date.Value);
+            SetPersianFormatText(intitialDate.Value);
+            Date = intitialDate;
+            DateChanged.InvokeAsync(Date);
         }
 
         if (DarkMode)
