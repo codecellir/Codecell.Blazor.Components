@@ -25,7 +25,7 @@ public partial class PersianDatePicker : IDisposable
     System.Globalization.PersianCalendar pc = new();
     List<DateCellModel> cells = new();
 
-    private const string ComponentId = "codecell_persian_date_picker_component";
+    private string ComponentId = "codecell_persian_date_picker_component";
     private const string InputId = "codecell-p-date";
     string componentClass = "persian-date-input";
     string pickerClass = "persian-date-wrapper d-none";
@@ -40,6 +40,7 @@ public partial class PersianDatePicker : IDisposable
 
     protected override void OnInitialized()
     {
+        ComponentId = $"{ComponentId}_{Guid.NewGuid()}";
         objRef = DotNetObjectReference.Create(this);
 
         var intitialDate = Date;
@@ -167,7 +168,7 @@ public partial class PersianDatePicker : IDisposable
         DateChanged.InvokeAsync(selectedDate);
         ValueChanged.InvokeAsync(selectedDate);
         SetPersianFormatText(Date.Value);
-        if (Immediate)
+        if (Immediate && validation is not null)
         {
             validation.Immediate();
         }
