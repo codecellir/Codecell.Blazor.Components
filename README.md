@@ -37,7 +37,6 @@ Add style references
 ``` Razor
 @page "/"
 
-``` Html
 <link href="_content/Codecell.Component.Blazor/codecell.css" rel="stylesheet" />
 ```
 
