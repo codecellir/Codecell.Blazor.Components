@@ -26,7 +26,7 @@ public partial class PersianDatePicker : IDisposable
     List<DateCellModel> cells = new();
 
     private string ComponentId = "codecell_persian_date_picker_component";
-    private const string InputId = "codecell-p-date";
+    private string InputId = "codecell-p-date";
     string componentClass = "persian-date-input";
     string pickerClass = "persian-date-wrapper d-none";
     string monthClass = "month-select d-none";
@@ -41,6 +41,7 @@ public partial class PersianDatePicker : IDisposable
     protected override void OnInitialized()
     {
         ComponentId = $"{ComponentId}_{Guid.NewGuid()}";
+        InputId = $"{InputId}_{Guid.NewGuid()}";
         objRef = DotNetObjectReference.Create(this);
 
         var intitialDate = Date;
