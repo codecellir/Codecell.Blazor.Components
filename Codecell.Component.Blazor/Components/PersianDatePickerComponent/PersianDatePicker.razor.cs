@@ -68,6 +68,11 @@ public partial class PersianDatePicker : IDisposable
             await JsInterop.AddOutSideClickHandler(ComponentId, objRef);
             await JsInterop.AddDateMask(InputId, objRef);
         }
+        else if (Date.HasValue)
+            SetPersianFormatText(Date.Value);
+        else
+            ClearWithoutInvoke();
+
     }
 
 
@@ -272,6 +277,15 @@ public partial class PersianDatePicker : IDisposable
         DateChanged.InvokeAsync(null);
         ValueChanged.InvokeAsync(null);
         JsInterop.ResetMask(InputId);
+    }
+    void ClearWithoutInvoke()
+    {
+        Date = selectedDate = null;
+        persianDateFormat = "1___/__/__";
+        pickerClass = "persian-date-wrapper d-none";
+        calendarClass = "calendar d-none";
+        monthClass = "month-select d-none";
+        yearClass = "year-select d-none";
     }
     void OnValidationChanged(bool status)
     {
