@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 using System.Linq.Expressions;
+using System.Xml.Linq;
 
 namespace Codecell.Component.Blazor.Components.PersianDatePickerComponent;
 
@@ -37,7 +38,7 @@ public partial class PersianDatePicker : IDisposable
     int currentMonth;
     int currentYear;
     int currentDay;
-
+    bool inMode;
     protected override void OnInitialized()
     {
         ComponentId = $"{ComponentId}_{Guid.NewGuid()}";
@@ -70,7 +71,7 @@ public partial class PersianDatePicker : IDisposable
         }
         else if (Date.HasValue)
             SetPersianFormatText(Date.Value);
-        else
+        else if(!inMode)
             ClearWithoutInvoke();
 
     }
@@ -168,6 +169,7 @@ public partial class PersianDatePicker : IDisposable
     }
     void SelectDate(DateTime date)
     {
+        inMode = false;
         selectedDate = Date = date;
         pickerClass = "persian-date-wrapper d-none";
         calendarClass = "calendar d-none";
@@ -214,12 +216,16 @@ public partial class PersianDatePicker : IDisposable
     }
     void MonthMode()
     {
+        inMode = true;
         monthClass = "month-select";
+        pickerClass = "persian-date-wrapper";
         calendarClass = "calendar d-none";
     }
     void YearMode()
     {
+        inMode = true;
         yearClass = "year-select";
+        pickerClass = "persian-date-wrapper";
         calendarClass = "calendar d-none";
     }
     void GoToMonth(int month)
