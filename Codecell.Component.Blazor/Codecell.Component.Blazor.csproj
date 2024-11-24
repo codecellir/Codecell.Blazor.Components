@@ -5,7 +5,7 @@
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Title>Cool Components for Blazor</Title>
-		<Version>0.2.6</Version>
+		<Version>0.2.7</Version>
 		<Authors>Sohrab Gheisari</Authors>
 		<Company>codecell.ir</Company>
 		<PackageTags>blazor,picker,persiandatePicker,datePicker</PackageTags>

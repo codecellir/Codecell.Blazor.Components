@@ -123,6 +123,7 @@ public partial class PersianDatePicker : IDisposable
     void PrepareCells(DateTime date)
     {
         cells = new();
+        Date = date;
         currentYear = pc.GetYear(date);
         currentMonth = pc.GetMonth(date);
         currentDay = pc.GetDayOfMonth(date);
