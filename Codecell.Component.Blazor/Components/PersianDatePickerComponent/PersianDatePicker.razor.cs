@@ -183,6 +183,9 @@ public partial class PersianDatePicker : IDisposable
     }
     void PrevMonth()
     {
+        inMode = true;
+        pickerClass = "persian-date-wrapper";
+        calendarClass = "calendar";
         if (currentMonth > 1)
         {
             currentMonth--;
@@ -200,6 +203,9 @@ public partial class PersianDatePicker : IDisposable
     }
     void NextMonth()
     {
+        inMode = true;
+        pickerClass = "persian-date-wrapper";
+        calendarClass = "calendar";
         if (currentMonth < 12)
         {
             currentMonth++;
