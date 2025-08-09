@@ -26,9 +26,19 @@ namespace Codecell.Component.Blazor.Components.PersianDatePickerComponent
             }
             else if (byte.TryParse(e.Key, out byte numbered))
             {
-                day = day + numbered;
+                if (numbered == 0)
+                {
+                    if (day.Length == 0)
+                        day = day + numbered;
+                    else if (day[0] != '0')
+                        day = day + numbered;
+                }
+                else
+                    day = day + numbered;
 
-                if (!(byte.TryParse(day, out var numberedDay) && numberedDay >= 0 && numberedDay <= 31))
+                byte.TryParse(day, out var numberedMonth);
+
+                if (numberedMonth > 31)
                 {
                     day = string.Empty;
                 }
