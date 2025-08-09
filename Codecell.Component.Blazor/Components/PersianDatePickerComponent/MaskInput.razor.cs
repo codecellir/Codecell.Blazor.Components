@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using System.Globalization;
 
 namespace Codecell.Component.Blazor.Components.PersianDatePickerComponent
 {
@@ -13,6 +14,8 @@ namespace Codecell.Component.Blazor.Components.PersianDatePickerComponent
         ElementReference monthInput;
         ElementReference yearInput;
 
+        [Parameter] public DateTime? Date { get; set; }
+        [Parameter] public EventCallback<DateTime?> DateChanged { get; set; }
         async Task HandleDayOnkeydown(KeyboardEventArgs e)
         {
             if (e.Key.Equals("ArrowLeft", StringComparison.OrdinalIgnoreCase))
@@ -42,6 +45,8 @@ namespace Codecell.Component.Blazor.Components.PersianDatePickerComponent
                 {
                     day = string.Empty;
                 }
+
+                await GetDate();
             }
 
             if (day.Length == 2)
@@ -82,6 +87,8 @@ namespace Codecell.Component.Blazor.Components.PersianDatePickerComponent
                 {
                     month = string.Empty;
                 }
+
+                await GetDate();
             }
 
             if (month.Length == 2)
@@ -105,7 +112,47 @@ namespace Codecell.Component.Blazor.Components.PersianDatePickerComponent
                     return;
 
                 year = year + numbered;
+                await GetDate();
+            }
+        }
+
+        async Task GetDate()
+        {
+            FixDate();
+
+            var persianDate = $"{year}/{month}/{day}";
+
+            if (persianDate.TryGetDateFromString(out var date))
+                await DateChanged.InvokeAsync(date);
+        }
+
+        void FixDate()
+        {
+            var pc = new PersianCalendar();
+
+            var dayIsValid = byte.TryParse(day, out var numberedDay);
+            var monthIsValid = byte.TryParse(month, out var numberedMonth);
+            var yearIsValid = int.TryParse(year, out var numberedYear) && numberedYear.ToString().Length==4;
+
+            if (dayIsValid && monthIsValid && yearIsValid)
+            {
+                if (numberedDay == 31 && numberedMonth >= 7)
+                {
+                    numberedDay = 30;
+                    day = "30";
+                }
+
+                if (numberedMonth == 12 && numberedDay == 30)
+                {
+                    bool isLeapYear = pc.IsLeapYear(numberedYear);
+                    if (!isLeapYear)
+                    {
+                        numberedDay = 29;
+                        day = "29";
+                    }
+                }
             }
         }
     }
+
 }

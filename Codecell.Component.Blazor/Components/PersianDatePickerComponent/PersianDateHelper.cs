@@ -81,4 +81,31 @@ public static class PersianDateHelper
         }
     }
 
+    public static bool TryGetDateFromString(this string persianDate, out DateTime? date)
+    {
+        date = null;
+   
+        if (string.IsNullOrWhiteSpace(persianDate))
+            return false;
+
+        var splitedString = persianDate.Split("/");
+
+        string year = splitedString[0];
+        string month = splitedString[1];
+        string day = splitedString[2];
+
+        if (!byte.TryParse(day, out var numberedDay) || numberedDay > 31)
+            return false;
+
+        if (!byte.TryParse(month, out var numberedMonth) || numberedMonth > 12)
+            return false;
+
+        if (!int.TryParse(year, out var numberedYear))
+            return false;
+
+
+        date = $"{year}/{month}/{day}".ToGeorgianDate();
+
+        return true;
+    }
 }
