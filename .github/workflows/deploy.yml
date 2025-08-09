@@ -1,10 +1,8 @@
 name: Publish NuGet Package
-
 on:
   push:
     branches:
       - master
-
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
@@ -19,13 +17,13 @@ jobs:
         dotnet-version: '8.x.x'
 
     - name: Restore dependencies
-      run: dotnet restore Codecell.Component.Blazor/Codecell.Component.Blazor.csproj
+      run: dotnet restore ./Codecell.Component.Blazor/Codecell.Component.Blazor.csproj
 
     - name: Build main project
-      run: dotnet build Codecell.Component.Blazor/Codecell.Component.Blazor.csproj --configuration Release --no-restore
+      run: dotnet build ./Codecell.Component.Blazor/Codecell.Component.Blazor.csproj --configuration Release --no-restore
 
     - name: Pack NuGet package
-      run: dotnet pack Codecell.Component.Blazor/Codecell.Component.Blazor.csproj --configuration Release --no-build --output ./nupkg
+      run: dotnet pack ./Codecell.Component.Blazor/Codecell.Component.Blazor.csproj --configuration Release --no-build --output ./nupkg
 
     - name: Setup NuGet API key
       uses: nuget/setup-nuget@v1
