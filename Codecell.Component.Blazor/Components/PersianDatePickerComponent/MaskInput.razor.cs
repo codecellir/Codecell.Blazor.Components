@@ -39,9 +39,9 @@ namespace Codecell.Component.Blazor.Components.PersianDatePickerComponent
                 else
                     day = day + numbered;
 
-                byte.TryParse(day, out var numberedMonth);
+                int.TryParse(day, out var numberedDay);
 
-                if (numberedMonth > 31)
+                if (numberedDay > 31)
                 {
                     day = string.Empty;
                 }
@@ -52,7 +52,6 @@ namespace Codecell.Component.Blazor.Components.PersianDatePickerComponent
             if (day.Length == 2)
                 await monthInput.FocusAsync();
         }
-
         async Task HandleMonthOnkeydown(KeyboardEventArgs e)
         {
             if (e.Key.Equals("ArrowLeft", StringComparison.OrdinalIgnoreCase))
@@ -81,7 +80,7 @@ namespace Codecell.Component.Blazor.Components.PersianDatePickerComponent
                 else
                     month = month + numbered;
 
-                byte.TryParse(month, out var numberedMonth);
+                int.TryParse(month, out var numberedMonth);
 
                 if (numberedMonth > 12)
                 {
