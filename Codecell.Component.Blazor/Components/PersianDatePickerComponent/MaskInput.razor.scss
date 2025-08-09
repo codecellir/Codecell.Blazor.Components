@@ -1,0 +1,11 @@
+.persian-date-mask-input {
+    direction: rtl;
+    display: flex;
+    align-items: center;
+
+    input {
+        border: 0;
+        border-bottom: 1px solid #dcdcdc;
+        width: 40px;
+    }
+}

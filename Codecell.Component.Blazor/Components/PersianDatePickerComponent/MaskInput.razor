@@ -1,0 +1,16 @@
+﻿<div class="persian-date-mask-input">
+    <input @onkeydown:preventDefault
+           @onkeydown=HandleDayOnkeydown
+           @bind-value=day
+           @ref="dayInput" />
+    <span>/</span>
+    <input @onkeydown:preventDefault
+           @onkeydown=HandleMonthOnkeydown
+           @bind-value=month
+           @ref="monthInput" />
+    <span>/</span>
+    <input @onkeydown:preventDefault
+           @onkeydown=HandleYearOnkeydown
+           @bind-value=year
+           @ref="yearInput" />
+</div>
