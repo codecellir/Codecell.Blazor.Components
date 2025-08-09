@@ -13,6 +13,12 @@ namespace Codecell.Component.Blazor
                 "import", "./_content/Codecell.Component.Blazor/persianDatePicker.js").AsTask());
         }
 
+        public async ValueTask<DomRect?> GetElementPositionAsync(string childSelector, string parentSelector)
+        {
+            var module = await moduleTask.Value;
+            return await module.InvokeAsync<DomRect?>("getElementPosition", childSelector, parentSelector);
+        }
+
         public async Task AddOutSideClickHandler(string elemntId, object dotNetObject)
         {
             var module = await moduleTask.Value;
@@ -47,5 +53,13 @@ namespace Codecell.Component.Blazor
                 await module.DisposeAsync();
             }
         }
+    }
+
+    public class DomRect
+    {
+        public double Top { get; set; }
+        public double Left { get; set; }
+        public double Width { get; set; }
+        public double Height { get; set; }
     }
 }

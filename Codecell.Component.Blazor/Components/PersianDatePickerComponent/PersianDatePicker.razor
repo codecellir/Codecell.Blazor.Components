@@ -25,15 +25,13 @@
         }
     </div>
 
-    <div class="@pickerClass">
-
+    <div class="@pickerClass" style="@pickerStyle">
         <div class="@monthClass">
             @foreach (var item in PersianDateHelper.GetMonths())
             {
                 <a @onclick="()=>GoToMonth(item.MonthNumber)">@item.MonthName</a>
             }
         </div>
-
 
         <div class="@yearClass">
             @for (int i = 1300; i <= 1500; i++)
@@ -42,7 +40,6 @@
                 <a @onclick="()=>GoToYear(year)">@i</a>
             }
         </div>
-
 
         <div class="@calendarClass">
             <div class="year">
@@ -77,7 +74,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 
 </div>

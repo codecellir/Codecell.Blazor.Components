@@ -11,12 +11,13 @@ Custom Components for Blazor
 - Date Change Event Callback
 - Validation
 - Mask Input
+- ShortKey(Now:Ctrl+Enter || Open:Ctrl+Space)
 
 ## Installation
 You can download the latest version of `Codecell.Component.Blazor` from [Github repository](https://github.com/codecellir/Codecell.Blazor.Components).
 To install via `nuget`:
 ```
-Install-Package Codecell.Component.Blazor -Version 0.3.0
+Install-Package Codecell.Component.Blazor -Version 0.3.1
 ```
 Install from [Nuget](https://www.nuget.org/packages/Codecell.Component.Blazor) directly.
 
@@ -35,8 +36,6 @@ Add using to _imports.razor
 
 Add style references
 ``` Razor
-@page "/"
-
 <link href="_content/Codecell.Component.Blazor/codecell.css" rel="stylesheet" />
 ```
 

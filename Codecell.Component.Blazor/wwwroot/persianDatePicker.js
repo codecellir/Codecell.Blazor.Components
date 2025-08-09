@@ -17,7 +17,6 @@ export function addOutSideClickHandler(elementId, dotnetHelper)
     window.addEventListener("click", handler);
     outsideClickHandlers.set(elementId, handler);
 }
-
 export function removeOutSideClickHandler(elementId)
 {
     const handler = outsideClickHandlers.get(elementId);
@@ -62,7 +61,6 @@ export function dateMask(elementId, dotnetHelper)
 
     masks.set(elementId, mask);
 }
-
 export function resetMask(elementId)
 {
     const maskInstance = masks.get(elementId);
@@ -76,4 +74,22 @@ export function getValue(elementId)
 {
     return document.getElementById(elementId).value;
 }
+
+
+export function getElementPosition(childSelector, parentSelector) {
+    const child = document.querySelector(childSelector);
+    const parent = document.querySelector(parentSelector);
+    if (!child || !parent) return null;
+
+    const childRect = child.getBoundingClientRect();
+    const parentRect = parent.getBoundingClientRect();
+
+    return {
+        top: childRect.top - parentRect.top,
+        left: childRect.left - parentRect.left,
+        width: childRect.width,
+        height: childRect.height
+    };
+}
+
 

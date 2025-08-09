@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace Codecell.Component.Blazor.Components.PersianDatePickerComponent;
 
@@ -30,6 +31,7 @@ public partial class PersianDatePicker : IAsyncDisposable
     private string InputId = "codecell-p-date";
     string componentClass = "persian-date-input";
     string pickerClass = "persian-date-wrapper d-none";
+    string pickerStyle = string.Empty;
     string monthClass = "month-select d-none";
     string yearClass = "year-select d-none";
     string calendarClass = "calendar d-none";
@@ -248,7 +250,7 @@ public partial class PersianDatePicker : IAsyncDisposable
         PrepareCells(date);
 
     }
-    void OpenPicker()
+    async Task OpenPicker()
     {
         if (pickerClass.Equals("persian-date-wrapper"))
         {
@@ -261,9 +263,11 @@ public partial class PersianDatePicker : IAsyncDisposable
         {
             componentClass = "persian-date-input dark";
         }
+        var pos = await JsInterop.GetElementPositionAsync($"#{InputId}", $"#{ComponentId}");
         selectedDate = Date.HasValue ? Date : DateTime.Now;
         PrepareCells(selectedDate.Value);
         pickerClass = "persian-date-wrapper";
+        pickerStyle = $"position:absolute; top:{pos.Top + pos.Height}px; right:0px; display:block; z-index:1000;";
         calendarClass = "calendar";
     }
     void SetPersianFormatText(DateTime date)
