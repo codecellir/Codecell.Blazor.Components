@@ -8,7 +8,7 @@
 
 <EditForm Model="@Model" OnValidSubmit="Submit">
     <DataAnnotationsValidator />
-    <ValidationSummary/>
+    <ValidationSummary />
     <div class="row" style="direction:rtl">
         <div class="col-md-4">
             <InputText class="form-control" @bind-Value="Model.Name" />
@@ -19,9 +19,9 @@
                                PlaceHolder="تاریخ تولد"
                                Label="تاریخ تولد:"
                                ValueChanged="DateChanged"
-                               DarkMode="false"
-                               For="()=>Model.BirthDate" 
-                               Immediate="true"/>
+                               DarkMode="true"
+                               For="()=>Model.BirthDate"
+                               Immediate="true" />
         </div>
         <div class="col-12 mt-2">
             <button class="btn btn-primary" type="submit">Submit</button>
@@ -35,7 +35,7 @@
 
 @code{
 
-    Student Model { get; set; } = new();
+    Student Model { get; set; } = new() { BirthDate = DateTime.Now };
 
     void DateChanged(DateTime? value)
     {
@@ -46,7 +46,7 @@
     {
         public string Name { get; set; }
 
-        [Required(ErrorMessage ="تاریخ تولد اجباری است")]
+        [Required(ErrorMessage = "تاریخ تولد اجباری است")]
         public DateTime? BirthDate { get; set; }
     }
 

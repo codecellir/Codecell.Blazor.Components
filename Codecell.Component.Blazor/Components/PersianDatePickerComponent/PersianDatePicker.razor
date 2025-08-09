@@ -2,22 +2,26 @@
 <div class="@componentClass" id="@ComponentId">
     <div class="input-wrapper">
         <span class="label">@Label</span>
-        <input class="p-date"
-               id="@InputId"
-                data-mask-reverse="true"
-               @onclick=OpenPicker
-               placeholder="@PlaceHolder"
-               @bind-value="@persianDateFormat"
-               @bind-value:event="oninput"
-               @onkeyup=OnKeyupHandler
-               @onkeydown=OnKeydownHandler />
+        <div class="input-holder">
+            <input class="p-date"
+                   id="@InputId"
+                   data-mask-reverse="true"
+                   placeholder="@PlaceHolder"
+                   tabindex="1"
+                   @ref="inputRef"
+                   @bind-value="@persianDateFormat"
+                   @bind-value:event="oninput"
+                   @onkeyup=OnKeyupHandler
+                   @onkeydown=OnKeydownHandler />
+            <div class="controllers">
+                <a @onclick=OpenPicker class="drop-down" tabindex="2">&#9660;</a>
+
+                <a @onclick="Clear" class="clear" tabindex="3">&#10006;</a>
+            </div>
+        </div>
         @if (For is not null)
         {
             <CustomValidationMessage For="For" OnValidationChanged="OnValidationChanged" @ref="validation" />
-        }
-        @if (!string.IsNullOrWhiteSpace(persianDateFormat))
-        {
-            <a @onclick="Clear" class="clear">&#10006;</a>
         }
     </div>
 

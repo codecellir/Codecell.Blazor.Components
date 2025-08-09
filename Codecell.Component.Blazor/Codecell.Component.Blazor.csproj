@@ -18,6 +18,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Content Remove="compilerconfig.json" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <None Include="..\LICENSE.txt">
 	    <Pack>True</Pack>
 	    <PackagePath>\</PackagePath>
@@ -30,6 +34,7 @@
 	    <Pack>True</Pack>
 	    <PackagePath>\</PackagePath>
 	  </None>
+	  <None Include="compilerconfig.json" />
 	</ItemGroup>
 
 
@@ -38,7 +43,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="DartSassBuilder" Version="1.1.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.8" />
 	</ItemGroup>
 

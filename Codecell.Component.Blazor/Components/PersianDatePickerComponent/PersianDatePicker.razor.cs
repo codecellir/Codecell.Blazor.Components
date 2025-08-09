@@ -3,25 +3,25 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 using System.Linq.Expressions;
-using System.Xml.Linq;
 
 namespace Codecell.Component.Blazor.Components.PersianDatePickerComponent;
 
-public partial class PersianDatePicker : IDisposable
+public partial class PersianDatePicker : IAsyncDisposable
 {
-    [Inject] public PersianDatePickerJsInterop JsInterop { get; set; }
+    [Inject] public required PersianDatePickerJsInterop JsInterop { get; set; }
 
     [Parameter] public bool DarkMode { get; set; }
     [Parameter] public bool Immediate { get; set; }
-    [Parameter] public string PlaceHolder { get; set; }
+    [Parameter] public string PlaceHolder { get; set; } = string.Empty;
     [Parameter] public string Label { get; set; } = "تاریخ";
     [Parameter] public DateTime? Date { get; set; }
-    [Parameter] public Expression<Func<DateTime?>> For { get; set; }
+    [Parameter] public Expression<Func<DateTime?>>? For { get; set; }
     [Parameter] public EventCallback<DateTime?> DateChanged { get; set; }
     [Parameter] public EventCallback<DateTime?> ValueChanged { get; set; }
 
+    private ElementReference inputRef;
     DotNetObjectReference<PersianDatePicker>? objRef;
-    CustomValidationMessage<DateTime?> validation;
+    CustomValidationMessage<DateTime?>? validation;
     DateTime? selectedDate;
     System.Globalization.PersianCalendar pc = new();
     List<DateCellModel> cells = new();
@@ -38,28 +38,18 @@ public partial class PersianDatePicker : IDisposable
     int currentMonth;
     int currentYear;
     int currentDay;
-    bool inMode;
-    protected override void OnInitialized()
+
+    protected override async Task OnInitializedAsync()
     {
         ComponentId = $"{ComponentId}_{Guid.NewGuid()}";
         InputId = $"{InputId}_{Guid.NewGuid()}";
         objRef = DotNetObjectReference.Create(this);
 
-        var intitialDate = Date;
-
-        Clear();
-
-        if (intitialDate.HasValue)
+        if (Date.HasValue)
         {
-            SetPersianFormatText(intitialDate.Value);
-            Date = intitialDate;
-            DateChanged.InvokeAsync(Date);
-        }
-
-        if (DarkMode)
-        {
-            componentClass = "persian-date-input dark";
-        }
+            SetPersianFormatText(Date.Value);
+            await DateChanged.InvokeAsync(Date);
+        }      
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -69,11 +59,6 @@ public partial class PersianDatePicker : IDisposable
             await JsInterop.AddOutSideClickHandler(ComponentId, objRef);
             await JsInterop.AddDateMask(InputId, objRef);
         }
-        else if (Date.HasValue)
-            SetPersianFormatText(Date.Value);
-        else if(!inMode)
-            ClearWithoutInvoke();
-
     }
 
 
@@ -95,8 +80,12 @@ public partial class PersianDatePicker : IDisposable
 
         if (date.HasValue)
         {
-            SelectDate(date.Value);
+            await SelectDate(date.Value);
             StateHasChanged();
+        }
+        else
+        {
+            await Clear();
         }
 
     }
@@ -112,21 +101,25 @@ public partial class PersianDatePicker : IDisposable
             StateHasChanged();
         }
     }
-    void OnKeydownHandler(KeyboardEventArgs e)
+    async Task OnKeydownHandler(KeyboardEventArgs e)
     {
         if (e.CtrlKey && e.Key == "Enter" && !Date.HasValue)
         {
-            SelectDate(DateTime.Now);
+            await SelectDate(DateTime.Now);
+        }
+        else if (e.CtrlKey && e.Key == " ")
+        {
+            OpenPicker();
         }
     }
-    void GoToToday() => SelectDate(DateTime.Now);
+    async Task GoToToday() => await SelectDate(DateTime.Now);
     void PrepareCells(DateTime date)
     {
         cells = new();
         Date = date;
-        currentYear = pc.GetYear(date);
-        currentMonth = pc.GetMonth(date);
-        currentDay = pc.GetDayOfMonth(date);
+        currentYear = pc.GetYear(Date.Value);
+        currentMonth = pc.GetMonth(Date.Value);
+        currentDay = pc.GetDayOfMonth(Date.Value);
         var isLeapYear = pc.IsLeapYear(currentYear);
 
         fullMonthName = $"{currentMonth.GetMonthName()} {currentYear}";
@@ -168,23 +161,22 @@ public partial class PersianDatePicker : IDisposable
             }
         }
     }
-    void SelectDate(DateTime date)
+    async Task SelectDate(DateTime date)
     {
-        inMode = false;
         selectedDate = Date = date;
         pickerClass = "persian-date-wrapper d-none";
         calendarClass = "calendar d-none";
-        DateChanged.InvokeAsync(selectedDate);
-        ValueChanged.InvokeAsync(selectedDate);
+        await DateChanged.InvokeAsync(selectedDate);
+        await ValueChanged.InvokeAsync(selectedDate);
         SetPersianFormatText(Date.Value);
         if (Immediate && validation is not null)
         {
             validation.Immediate();
         }
+        await inputRef.FocusAsync();
     }
     void PrevMonth()
     {
-        inMode = true;
         pickerClass = "persian-date-wrapper";
         calendarClass = "calendar";
         if (currentMonth > 1)
@@ -204,7 +196,6 @@ public partial class PersianDatePicker : IDisposable
     }
     void NextMonth()
     {
-        inMode = true;
         pickerClass = "persian-date-wrapper";
         calendarClass = "calendar";
         if (currentMonth < 12)
@@ -223,14 +214,12 @@ public partial class PersianDatePicker : IDisposable
     }
     void MonthMode()
     {
-        inMode = true;
         monthClass = "month-select";
         pickerClass = "persian-date-wrapper";
         calendarClass = "calendar d-none";
     }
     void YearMode()
     {
-        inMode = true;
         yearClass = "year-select";
         pickerClass = "persian-date-wrapper";
         calendarClass = "calendar d-none";
@@ -267,6 +256,11 @@ public partial class PersianDatePicker : IDisposable
             calendarClass = "calendar d-none";
             return;
         }
+
+        if (DarkMode)
+        {
+            componentClass = "persian-date-input dark";
+        }
         selectedDate = Date.HasValue ? Date : DateTime.Now;
         PrepareCells(selectedDate.Value);
         pickerClass = "persian-date-wrapper";
@@ -279,7 +273,7 @@ public partial class PersianDatePicker : IDisposable
         currentDay = pc.GetDayOfMonth(date);
         persianDateFormat = $"{currentYear}/{currentMonth.ToString("D2")}/{currentDay.ToString("D2")}";
     }
-    void Clear()
+    async Task Clear()
     {
         Date = selectedDate = null;
         persianDateFormat = "1___/__/__";
@@ -287,18 +281,11 @@ public partial class PersianDatePicker : IDisposable
         calendarClass = "calendar d-none";
         monthClass = "month-select d-none";
         yearClass = "year-select d-none";
-        DateChanged.InvokeAsync(null);
-        ValueChanged.InvokeAsync(null);
-        JsInterop.ResetMask(InputId);
-    }
-    void ClearWithoutInvoke()
-    {
-        Date = selectedDate = null;
-        persianDateFormat = "1___/__/__";
-        pickerClass = "persian-date-wrapper d-none";
-        calendarClass = "calendar d-none";
-        monthClass = "month-select d-none";
-        yearClass = "year-select d-none";
+        await DateChanged.InvokeAsync(null);
+        await ValueChanged.InvokeAsync(null);
+        //await JsInterop.ResetMask(InputId);
+
+        await inputRef.FocusAsync();
     }
     void OnValidationChanged(bool status)
     {
@@ -306,8 +293,9 @@ public partial class PersianDatePicker : IDisposable
 
         componentClass = hasError ? $"persian-date-input error" : "persian-date-input";
     }
-    public void Dispose()
+
+    public async ValueTask DisposeAsync()
     {
-        JsInterop.RemoveOutSideClickHandler(ComponentId);
+       await JsInterop.RemoveOutSideClickHandler(ComponentId);
     }
 }

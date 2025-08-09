@@ -16,41 +16,76 @@
             color: #5b5959;
         }
 
-        .p-date {
-            font-size: 14px;
-            text-align: right;
-            padding-right: 10px;
-            border: 1px solid #ced4da;
-            line-height: 30px;
-            color: #212529;
-            background-color: #fff;
-            border-radius: 4px;
-            cursor: pointer;
-            direction: rtl;
-            width: 100%;
-
-            &:focus-visible {
-                outline-offset: 2px;
-                outline-color: #0d6efd;
-            }
-        }
-
-        .clear {
-            position: absolute;
-            width: 25px;
-            height: 25px;
+        .input-holder {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            text-decoration: none;
-            font-size: 14px;
-            top: 28px;
-            left: 3px;
-            color: #bbb8b8;
-            font-weight: 100;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
 
-            &:hover {
+            .p-date {
+                border: none;
+                font-size: 14px;
+                text-align: right;
+                padding-right: 8px;
+                line-height: 30px;
+                color: #212529;
+                background-color: #fff;
                 cursor: pointer;
+                direction: rtl;
+                width: 100%;
+                flex-grow: 1;
+
+                &:focus-visible {
+                    outline: none;
+                    box-shadow: none;
+                }
+            }
+
+            .controllers {
+                width: 52px;
+                display: flex;
+                justify-content: flex-start;
+                gap: 4px;
+                margin-left: 4px;
+
+                .drop-down {
+                    width: 25px;
+                    height: 25px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    text-decoration: none;
+                    font-size: 14px;
+                    color: #bbb8b8;
+                    font-weight: 100;
+
+                    &:hover {
+                        cursor: pointer;
+                        background: #bbb8b8;
+                        color: #fff;
+                        border-radius: 4px;
+                    }
+                }
+
+                .clear {
+                    width: 25px;
+                    height: 25px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    text-decoration: none;
+                    font-size: 14px;
+                    color: #bbb8b8;
+                    font-weight: 100;
+
+                    &:hover {
+                        cursor: pointer;
+                        background: #bbb8b8;
+                        color: #fff;
+                        border-radius: 4px;
+                    }
+                }
             }
         }
     }

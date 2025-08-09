@@ -37,8 +37,8 @@ export function dateMask(elementId, dotnetHelper)
         blocks: {
             YYYY: {
                 mask: IMask.MaskedRange,
-                from: 1300,
-                to: 1500,
+                from: 1200,
+                to: 1800,
             }  ,
             MM: {
                 mask: IMask.MaskedRange,
@@ -65,11 +65,11 @@ export function dateMask(elementId, dotnetHelper)
 
 export function resetMask(elementId)
 {
-    const mask = masks.get(elementId);
-
-    if (mask)
-    {
-        mask.reset();
+    const maskInstance = masks.get(elementId);
+    if (maskInstance) {
+        maskInstance.reset();
+    } else {
+        console.warn(`No mask instance found for ${elementId}`);
     }
 }  
 export function getValue(elementId)
