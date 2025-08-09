@@ -2,5 +2,9 @@
   {
     "outputFile": "Components/PersianDatePickerComponent/PersianDatePicker.razor.css",
     "inputFile": "Components/PersianDatePickerComponent/PersianDatePicker.razor.scss"
+  },
+  {
+    "outputFile": "Components/PersianDatePickerComponent/MaskInput.razor.css",
+    "inputFile": "Components/PersianDatePickerComponent/MaskInput.razor.scss"
   }
 ]

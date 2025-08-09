@@ -15,9 +15,10 @@ namespace Codecell.Component.Blazor.Components.PersianDatePickerComponent
 
         async Task HandleDayOnkeydown(KeyboardEventArgs e)
         {
-            if (e.Key.Equals("ArrowRight", StringComparison.OrdinalIgnoreCase))
+            if (e.Key.Equals("ArrowLeft", StringComparison.OrdinalIgnoreCase))
             {
                 await monthInput.FocusAsync();
+                return;
             }
             else if (e.Key.Equals("Backspace", StringComparison.OrdinalIgnoreCase) && !string.IsNullOrWhiteSpace(day))
             {
@@ -39,13 +40,15 @@ namespace Codecell.Component.Blazor.Components.PersianDatePickerComponent
 
         async Task HandleMonthOnkeydown(KeyboardEventArgs e)
         {
-            if (e.Key.Equals("ArrowRight", StringComparison.OrdinalIgnoreCase))
+            if (e.Key.Equals("ArrowLeft", StringComparison.OrdinalIgnoreCase))
             {
                 await yearInput.FocusAsync();
+                return;
             }
-            else if (e.Key.Equals("ArrowLeft", StringComparison.OrdinalIgnoreCase))
+            else if (e.Key.Equals("ArrowRight", StringComparison.OrdinalIgnoreCase))
             {
                 await dayInput.FocusAsync();
+                return;
             }
             else if (e.Key.Equals("Backspace", StringComparison.OrdinalIgnoreCase) && !string.IsNullOrWhiteSpace(month))
             {
@@ -53,9 +56,19 @@ namespace Codecell.Component.Blazor.Components.PersianDatePickerComponent
             }
             else if (byte.TryParse(e.Key, out byte numbered))
             {
-                month = month + numbered;
+                if (numbered == 0)
+                {
+                    if (month.Length == 0)
+                        month = month + numbered;
+                    else if (month[0] != '0')
+                        month = month + numbered;
+                }
+                else
+                    month = month + numbered;
 
-                if (!(byte.TryParse(month, out var numberedMonth) && numberedMonth > 0 && numberedMonth <= 12))
+                byte.TryParse(month, out var numberedMonth);
+
+                if (numberedMonth > 12)
                 {
                     month = string.Empty;
                 }
@@ -67,16 +80,20 @@ namespace Codecell.Component.Blazor.Components.PersianDatePickerComponent
 
         async Task HandleYearOnkeydown(KeyboardEventArgs e)
         {
-            if (e.Key.Equals("ArrowLeft", StringComparison.OrdinalIgnoreCase))
+            if (e.Key.Equals("ArrowRight", StringComparison.OrdinalIgnoreCase))
             {
                 await monthInput.FocusAsync();
+                return;
             }
             else if (e.Key.Equals("Backspace", StringComparison.OrdinalIgnoreCase) && !string.IsNullOrWhiteSpace(year))
             {
                 year = year[..^1];
             }
-            else if (byte.TryParse(e.Key, out byte numbered) && numbered > 0 && year.Length < 4)
+            else if (byte.TryParse(e.Key, out byte numbered) && year.Length < 4)
             {
+                if (string.IsNullOrEmpty(year) && numbered == 0)
+                    return;
+
                 year = year + numbered;
             }
         }
