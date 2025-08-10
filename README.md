@@ -17,7 +17,7 @@ Custom Components for Blazor
 You can download the latest version of `Codecell.Component.Blazor` from [Github repository](https://github.com/codecellir/Codecell.Blazor.Components).
 To install via `nuget`:
 ```
-Install-Package Codecell.Component.Blazor -Version 0.3.1
+Install-Package Codecell.Component.Blazor -Version 0.4.0
 ```
 Install from [Nuget](https://www.nuget.org/packages/Codecell.Component.Blazor) directly.
 
