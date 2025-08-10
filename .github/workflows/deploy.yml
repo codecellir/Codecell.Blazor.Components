@@ -11,10 +11,12 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Setup .NET SDK
+    - name: Setup .NET SDKs
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: '8.x.x'
+        dotnet-version: |
+          8.x.x
+          9.x.x
 
     - name: Restore dependencies
       run: dotnet restore ./Codecell.Component.Blazor/Codecell.Component.Blazor.csproj
